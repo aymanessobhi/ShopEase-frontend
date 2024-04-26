@@ -6,13 +6,30 @@ import translationGr from './locales/gr/translation.json';
 import translationIT from './locales/it/translation.json';
 import translationRS from './locales/rs/translation.json';
 import translationSP from './locales/sp/translation.json';
-import translationENG from './locales/en/translation.json';
-import translationFr from './locales/fr/translation.json';
 
 //translations
 const resources = {
   fr: {
-    translation: translationFr
+    translation: {
+      product: {
+        title: "Titre",
+        description: "Description",
+        media: "Media",
+        pricing: "Pricing",
+        price:"Price",
+        comparePrice:"Compare-at price",
+        costPerItem:"Cost per item",
+        profit:"Profit",
+        margin:"Margin",
+        taxable:"Charge tax on this product",
+        weight:"weight",
+        shipping:"This is a physical product",
+        shippingg:"Shipping"
+      },
+      message: {
+        required: "Champ obligatoire"
+      },
+    }
   },
   gr: {
     translation: translationGr
@@ -27,19 +44,20 @@ const resources = {
     translation: translationSP
   },
    eng: {
-    translation: translationENG
+    translation: {
+      product:{
+        title : "Title",
+      }
+    }
   }
 };
 
 i18n
-  .use(detector)
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
     lng: "fr",
-    fallbackLng: "fr", // use en if detected lng is not available
 
-    keySeparator: false, // we do not use keys in form messages.welcome
 
     interpolation: {
       escapeValue: false // react already safes from xss
