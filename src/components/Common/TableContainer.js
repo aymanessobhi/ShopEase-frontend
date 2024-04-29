@@ -72,9 +72,13 @@ const TableContainer = ({
   handleCustomerClick,
   handleFournisseurClick,
   handleProductClick,
+  handleLocationClick,
+  handleStaffClick,
   isAddCustList,
   isAddFournList,
   isAddProdList,
+  isAddStaffList,
+  isAddLocationList,
   customPageSize,
   className,
   customPageSizeOptions,
@@ -230,6 +234,36 @@ const TableContainer = ({
               >
                 <i className="mdi mdi-plus me-1" />
                 {t('newprod')}
+              </Button>
+            </div>
+          </Col>
+        )}
+        {isAddLocationList && (
+          <Col sm="10">
+            <div className="text-sm-end">
+              <Button
+                type="button"
+                color="success"
+                className="btn-rounded mb-2 me-2"
+                onClick={handleLocationClick}
+              >
+                <i className="mdi mdi-plus me-1" />
+                {t('newlocation')}
+              </Button>
+            </div>
+          </Col>
+        )}
+        {isAddStaffList && (
+          <Col sm="10">
+            <div className="text-sm-end">
+              <Button
+                type="button"
+                color="success"
+                className="btn-rounded mb-2 me-2"
+                onClick={handleStaffClick}
+              >
+                <i className="mdi mdi-plus me-1" />
+                {t('newstaff')}
               </Button>
             </div>
           </Col>

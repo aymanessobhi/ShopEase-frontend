@@ -1,33 +1,28 @@
-
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Button, Card, CardBody, Container } from "reactstrap";
+import { useFormik } from 'formik';
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router';
 import Breadcrumbs from '../../components/Common/Breadcrumb';
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useFormik } from "formik";
-import DescriptionBloc from "./DescriptionBloc";
-import MediaUploadForm from "./MediaUpload";
-import Pricing from "./Pricing";
-import Shipping from "./Shipping";
-import Inventory from "./Inventory";
+import { Card, CardBody, Container} from "reactstrap";
+import LocationName from './LocationName';
+import Address from './Address';
+import FulfillmentDetails from './FulfillmentDetails';
+import PointOfSaleSection from './PointOfSaleSection';
 
 const initForm = {
-    title: '',
-    description: '', 
-    price: '',
-    comparePrice:'',
-    taxable: false,
-    costPerItem: '',
-    profit: '',
-    margin: '',
-    track:'',
-    weight: '',
-    shipping: false,
-    skuBarcode: false,
+    locationName: '',
+    country: '',
+    address: '',
+    apartment: '',
+    postalCode: '',
+    city: '',
+    phone: '',
+    fulfillOnlineOrders: false,
+    posEnabled: false,
 }
 
-const ProductForm = () => {
+const LocationForm = () => {
     const { t } = useTranslation('translation');
     const [formState, setForm] = useState(initForm);
     let { id } = useParams();
@@ -62,7 +57,7 @@ const ProductForm = () => {
 
     const breadcrumbItems = [
         { title: t('database'), link: "#" },
-        { title: t('products'), link: "#" },
+        { title: t('locations'), link: "#" },
         { title: t('newprod'), link: "#" }
     ];
 
@@ -70,16 +65,15 @@ const ProductForm = () => {
         <React.Fragment>
             <div className="page-content">
                 <Container fluid={true}>
-                    <Breadcrumbs title={t('newprod')} breadcrumbItems={breadcrumbItems} />
-                        <DescriptionBloc formik={formik} /> 
-                        <MediaUploadForm formik={formik}/>   
-                        <Pricing formik={formik}/>
-                        <Inventory formik={formik} />
-                        <Shipping formik={formik}/>  
+                    <Breadcrumbs title={t('newlocation')} breadcrumbItems={breadcrumbItems} />
+                    <LocationName formik={formik} /> 
+                    <Address formik={formik} /> 
+                    <FulfillmentDetails formik={formik} /> 
+                    <PointOfSaleSection formik={formik} />
                 </Container>
             </div>
         </React.Fragment>
     )
 }
 
-export default ProductForm;
+export default LocationForm
