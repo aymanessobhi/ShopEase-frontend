@@ -19,9 +19,9 @@ import LocationPage from "../pages/Location";
 import StaffPage from "../pages/Staff";
 import StaffForm from "../pages/Staff/StaffForm";
 import DiscountPage from "../pages/Discount";
-import FixedAmountForm from "../pages/Discount/FixedAmountForm";
 import PercentageForm from "../pages/Discount/PercentageForm";
 import BuyXGetYForm from "../pages/Discount/BuyXGetYForm";
+import AmountOffProductForm from "../pages/Discount/AmountOffProductForm";
 
 
 const authProtectedRoutes = [
@@ -34,8 +34,8 @@ const authProtectedRoutes = [
 	{ path: "/base/discount/new", render: (props) => {
 		const type = props.location.search.substring(6); 
 		switch (type) {
-		  case 'fixedAmount':
-			return <FixedAmountForm />;
+		  case 'AmountOffProduct':
+			return <AmountOffProductForm />;
 		  case 'percentage':
 			return <PercentageForm />;
 		  case 'buyXgetY':

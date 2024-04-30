@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { Button, Card, CardBody, Col, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useHistory, useNavigate } from 'react-router-dom';
-import FixedAmountForm from './FixedAmountForm'; // Import your form components
 import PercentageForm from './PercentageForm';
 import BuyXGetYForm from './BuyXGetYForm';
 import discount from "../../assets/images/discount.png";
 
 const discountTypes = [
-    { value: 'fixedAmount', label: 'Fixed Amount' },
+    { value: 'AmountOfProduct', label: 'Amount Of Product' },
     { value: 'percentage', label: 'Percentage' },
     { value: 'buyXgetY', label: 'Buy X Get Y' },
 ];
