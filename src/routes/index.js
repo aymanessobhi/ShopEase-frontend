@@ -19,6 +19,10 @@ import LocationPage from "../pages/Location";
 import StaffPage from "../pages/Staff";
 import StaffForm from "../pages/Staff/StaffForm";
 import DiscountPage from "../pages/Discount";
+import FixedAmountForm from "../pages/Discount/FixedAmountForm";
+import PercentageForm from "../pages/Discount/PercentageForm";
+import BuyXGetYForm from "../pages/Discount/BuyXGetYForm";
+
 
 const authProtectedRoutes = [
 	{ path: "/dashboard", component: <Dashboard /> },
@@ -27,6 +31,19 @@ const authProtectedRoutes = [
 	{ path: "/base/product", component: <ProductPage /> },
 	{ path: "/base/staff", component: <StaffPage /> },
 	{ path: "/base/discount", component: <DiscountPage /> },
+	{ path: "/base/discount/new", render: (props) => {
+		const type = props.location.search.substring(6); 
+		switch (type) {
+		  case 'fixedAmount':
+			return <FixedAmountForm />;
+		  case 'percentage':
+			return <PercentageForm />;
+		  case 'buyXgetY':
+			return <BuyXGetYForm />;
+		  default:
+			return null;
+		}
+	}},
 	{ path: "/base/staff/new", component: <StaffForm /> },
 	{ path: "/base/product/new", component: <ProductForm /> },
 	{ path: "/base/customer", component: <CustomerPage /> },

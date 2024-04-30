@@ -11,7 +11,7 @@ const DiscountPage = () => {
     const { t } = useTranslation('translation');
     const breadcrumbItems = [
         { title: t('database'), link: "#" },
-        { title: t('staffs'), link: "#" }
+        { title: t('discounts'), link: "#" }
     ];
     const navigate = useNavigate();
     
