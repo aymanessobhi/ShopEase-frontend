@@ -14,10 +14,20 @@ import CustomerPage from "../pages/Customer";
 import CustomerForm from "../pages/Customer/CustomerForm";
 import FournisseurPage from "../pages/Fournisseur";
 import FournisseurForm from "../pages/Fournisseur/FournisseurForm";
+import LocationForm from "../pages/Location/LocationForm";
+import LocationPage from "../pages/Location";
+import StaffPage from "../pages/Staff";
+import StaffForm from "../pages/Staff/StaffForm";
+import DiscountPage from "../pages/Discount";
 
 const authProtectedRoutes = [
 	{ path: "/dashboard", component: <Dashboard /> },
+	{ path: "/base/location", component: <LocationPage /> },
+	{ path: "/base/location/new", component: <LocationForm /> },
 	{ path: "/base/product", component: <ProductPage /> },
+	{ path: "/base/staff", component: <StaffPage /> },
+	{ path: "/base/discount", component: <DiscountPage /> },
+	{ path: "/base/staff/new", component: <StaffForm /> },
 	{ path: "/base/product/new", component: <ProductForm /> },
 	{ path: "/base/customer", component: <CustomerPage /> },
 	{ path: "/base/customer/new", component: <CustomerForm /> },
