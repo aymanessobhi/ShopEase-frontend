@@ -22,6 +22,7 @@ import DiscountPage from "../pages/Discount";
 import PercentageForm from "../pages/Discount/PercentageForm";
 import BuyXGetYForm from "../pages/Discount/BuyXGetYForm";
 import AmountOffProductForm from "../pages/Discount/AmountOffProductForm";
+import DiscountForm from "../pages/Discount/DiscountFrom";
 
 
 const authProtectedRoutes = [
@@ -31,19 +32,7 @@ const authProtectedRoutes = [
 	{ path: "/base/product", component: <ProductPage /> },
 	{ path: "/base/staff", component: <StaffPage /> },
 	{ path: "/base/discount", component: <DiscountPage /> },
-	{ path: "/base/discount/new", render: (props) => {
-		const type = props.location.search.substring(6); 
-		switch (type) {
-		  case 'AmountOffProduct':
-			return <AmountOffProductForm />;
-		  case 'percentage':
-			return <PercentageForm />;
-		  case 'buyXgetY':
-			return <BuyXGetYForm />;
-		  default:
-			return null;
-		}
-	}},
+	{ path: "/base/discount/new/:type", component: <DiscountForm /> },	
 	{ path: "/base/staff/new", component: <StaffForm /> },
 	{ path: "/base/product/new", component: <ProductForm /> },
 	{ path: "/base/customer", component: <CustomerPage /> },

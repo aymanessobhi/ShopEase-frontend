@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { Button, Card, CardBody, Col, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Card, CardBody, Col, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
-import { Link, Navigate, useHistory, useNavigate } from 'react-router-dom';
-import PercentageForm from './PercentageForm';
-import BuyXGetYForm from './BuyXGetYForm';
+import { Link, useNavigate } from 'react-router-dom';
 import discount from "../../assets/images/discount.png";
 
 const discountTypes = [
-    { value: 'AmountOfProduct', label: 'Amount Of Product' },
+    { value: 'amountOffProduct', label: 'Amount Off Product' },
     { value: 'percentage', label: 'Percentage' },
     { value: 'buyXgetY', label: 'Buy X Get Y' },
 ];
@@ -15,19 +13,17 @@ const discountTypes = [
 const EmptyDiscount = () => {
     const { t } = useTranslation('translation');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedDiscountType, setSelectedDiscountType] = useState('');
     const navigate = useNavigate();
 
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
     const handleDiscountTypeChange = (type) => {
-        setSelectedDiscountType(type);
         toggleModal();
-        navigate(`/base/discount/new?type=${type}`);
+        navigate(`/base/discount/new/${type}`);
     };
 
     return (
-        <Card>
+        <Card >
             <CardBody>
                 <div className="mb-4 d-flex justify-content-center text-center">
                     <img src={discount} alt="Discount" style={{ maxWidth: '30%', height: 'auto' }} />
@@ -46,15 +42,17 @@ const EmptyDiscount = () => {
                 <Modal isOpen={isModalOpen} toggle={toggleModal}>
                     <ModalHeader toggle={toggleModal}>{t('discount.createDiscount')}</ModalHeader>
                     <ModalBody>
-                        {discountTypes.map((type) => (
-                            <div key={type.value}>
-                                <Card  style={{ cursor: 'pointer', backgroundColor: '#f8f9fa', border: '1px solid #dee2e6', borderRadius: '0.25rem' }} onClick={() => handleDiscountTypeChange(type.value)}>
-                                    <CardBody>
-                                        <p>{type.label}</p>
-                                    </CardBody>
-                                </Card>
-                            </div>
-                        ))}
+                        <div>
+                            {discountTypes.map((type) => (
+                                <div key={type.value}>
+                                    <Card style={{ cursor: 'pointer', backgroundColor: '#f8f9fa', border: '1px solid #dee2e6', borderRadius: '0.25rem' }} onClick={() => handleDiscountTypeChange(type.value)}>
+                                        <CardBody>
+                                            <p>{type.label}</p>
+                                        </CardBody>
+                                    </Card>
+                                </div>
+                            ))}
+                        </div>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="secondary" onClick={toggleModal}>{t('discount.cancel')}</Button>
