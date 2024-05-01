@@ -7,6 +7,8 @@ import Breadcrumbs from '../../../components/Common/Breadcrumb';
 import { Card, CardBody, Container} from "reactstrap";
 import AmountOffProducts from './AmountOffProducts';
 import DiscountValue from './DiscountValue';
+import Availability from './Availability';
+import Purchase from './Purchase';
 
 const initForm = {
     
@@ -18,6 +20,11 @@ const AmountOffProductForm = () => {
     let { id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [showAvailability, setShowAvailability] = useState(true);
+
+    const handleButtonToggle = (show) => {
+        setShowAvailability(show);
+    };
 
     useEffect(() => {
         if (id) {
@@ -56,8 +63,10 @@ const AmountOffProductForm = () => {
             <div className="page-content">
                 <Container fluid={true}>
                     <Breadcrumbs title={t('create discount')} breadcrumbItems={breadcrumbItems} />
-                    <AmountOffProducts formik={formik} /> 
+                    <AmountOffProducts formik={formik} handleButtonToggle={handleButtonToggle}/> 
                     <DiscountValue formik={formik} /> 
+                    {showAvailability && <Availability formik={formik} />}
+                    <Purchase formik={formik} />
                 </Container>
             </div>
         </React.Fragment>

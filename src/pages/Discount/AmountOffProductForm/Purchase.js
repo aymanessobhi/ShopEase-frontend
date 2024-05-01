@@ -1,9 +1,61 @@
-import React from 'react'
+import React from 'react';
+import { AvField, AvForm } from 'availity-reactstrap-validation';
+import { Card, CardBody, Col, Row } from 'reactstrap';
+import { useTranslation } from 'react-i18next';
+import { FormikProvider } from 'formik';
 
-const Purchase = () => {
-  return (
-    <div>Purchase</div>
-  )
+const Purchase = ({ formik }) => {
+    const { t } = useTranslation('translation');
+    const { getFieldProps, values } = formik;
+
+    return (
+        <FormikProvider value={formik}>
+            <Card>
+                <CardBody>
+                    <AvForm>
+                        <span style={{ fontSize: '15px', fontWeight: 'bold', color: '#333' }}>{t('minimumPurchaseRequirements')}</span>
+                        <div style={{ marginTop: '10px' }}>
+                            <span style={{ fontSize: '15px', fontWeight: 'normal', color: '#333' }}>{t('minimumPurchaseDescription')}</span>
+                            <div className="mb-3 form-check">
+                                <AvField type="radio" {...getFieldProps('minimumPurchaseRequirement')} value="none" className="form-check-input" id="noMinimumRequirements" />
+                                <label className="form-check-label" htmlFor="noMinimumRequirements">{t('noMinimumRequirements')}</label>
+                            </div>
+                            <div className="mb-3 form-check">
+                                <AvField type="radio" {...getFieldProps('minimumPurchaseRequirement')} value="amount" className="form-check-input" id="minimumAmount" />
+                                <label className="form-check-label" htmlFor="minimumAmount">{t('minimumPurchaseAmount')} (MAD)</label>
+                                {values.minimumPurchaseRequirement === 'amount' && (
+                                    <AvField
+                                        name="minimumAmountValue"
+                                        type="number"
+                                        min="0"
+                                        step="0.01"
+                                        placeholder={t('enterAmount')}
+                                        errorMessage={t('message.required')}
+                                        className="form-control"
+                                    />
+                                )}
+                            </div>
+                            <div className="mb-3 form-check">
+                                <AvField type="radio" {...getFieldProps('minimumPurchaseRequirement')} value="quantity" className="form-check-input" id="minimumQuantity" />
+                                <label className="form-check-label" htmlFor="minimumQuantity">{t('minimumQuantityOfItems')}</label>
+                                {values.minimumPurchaseRequirement === 'quantity' && (
+                                    <AvField
+                                        name="minimumQuantityValue"
+                                        type="number"
+                                        min="0"
+                                        step="1"
+                                        placeholder={t('enterQuantity')}
+                                        errorMessage={t('message.required')}
+                                        className="form-control"
+                                    />
+                                )}
+                            </div>
+                        </div>
+                    </AvForm>
+                </CardBody>
+            </Card>
+        </FormikProvider>
+    );
 }
 
-export default Purchase
+export default Purchase;
