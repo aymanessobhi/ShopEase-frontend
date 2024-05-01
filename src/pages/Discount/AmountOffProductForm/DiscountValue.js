@@ -147,6 +147,7 @@ const DiscountValue = ({ formik }) => {
                 </ModalBody>
             </Modal>
         </FormikProvider>
+        
     );
 }
 
