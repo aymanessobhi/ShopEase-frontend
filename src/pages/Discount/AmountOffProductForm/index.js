@@ -9,6 +9,10 @@ import AmountOffProducts from './AmountOffProducts';
 import DiscountValue from './DiscountValue';
 import Availability from './Availability';
 import Purchase from './Purchase';
+import CustomerEligibility from './CustomerEligibility';
+import Combinations from './Combinations';
+import ActiveDates from './ActiveDates';
+import MaximumDiscountUses from './MaximumDiscountUses';
 
 const initForm = {
     
@@ -21,9 +25,15 @@ const AmountOffProductForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showAvailability, setShowAvailability] = useState(true);
+    const [showCustomerEligibility, setShowCustomerEligibility] = useState(true);
+    const [showNoMinimumRequirements, setShowNoMinimumRequirements] = useState(true);
+    const [showMaximumDiscountUses, setShowMaximumDiscountUses] = useState(true);
 
     const handleButtonToggle = (show) => {
         setShowAvailability(show);
+        setShowCustomerEligibility(!show);
+        setShowNoMinimumRequirements(show);
+        setShowMaximumDiscountUses(!show);
     };
 
     useEffect(() => {
@@ -66,11 +76,15 @@ const AmountOffProductForm = () => {
                     <AmountOffProducts formik={formik} handleButtonToggle={handleButtonToggle}/> 
                     <DiscountValue formik={formik} /> 
                     {showAvailability && <Availability formik={formik} />}
-                    <Purchase formik={formik} />
+                    <Purchase formik={formik} automaticDiscountClicked={!showNoMinimumRequirements} />
+                    {showCustomerEligibility && <CustomerEligibility formik={formik} />}
+                    {showMaximumDiscountUses && <MaximumDiscountUses formik={formik} />}
+                    <Combinations formik={formik}/> 
+                    <ActiveDates formik={formik}/> 
                 </Container>
             </div>
         </React.Fragment>
     )
 }
 
-export default AmountOffProductForm
+export default AmountOffProductForm;

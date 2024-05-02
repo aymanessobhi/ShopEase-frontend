@@ -19,7 +19,7 @@ const Availability = ({ formik }) => {
                         <span className="mb-4" style={{ fontSize: '15px', fontWeight: 'normal', color: '#333' }}>{t('discount.avaiDescription')}</span>
                         <Col md="4">
                                 <div className="mb-3 form-check">
-                                    <input type="checkbox" {...getFieldProps('availability')} className="form-check-input" id="availability" />
+                                    <AvField type="checkbox" {...getFieldProps('availability')} className="form-check-input" id="availability" />
                                     <Label className="form-check-label" htmlFor="availability">{t('discount.avaiDescriptionA')}</Label>
                                 </div>
                             </Col>
