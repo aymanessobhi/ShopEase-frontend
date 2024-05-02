@@ -1,33 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 // import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 
-import { logoutUser } from '../../store/actions';
-import withRouter from '../../components/Common/withRouter';
+import { useNavigate } from 'react-router-dom';
+import { userActions } from '../../sagas/userSlice';
 
-class Logout extends Component {
+function Logout (){
 
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    componentDidMount() {
+    useEffect(() => {
 
         // Fire Action for Remove all Item from localstorage and redirect to login page
         setTimeout(() => {
-            this.props.logoutUser(this.props.router.navigate);
+            dispatch(userActions.logout({ history: navigate }));
         }, [100]);
-    }
+    }, []);
 
-    render() {
-        return (
-            <React.Fragment>
-                <h1>&nbsp;</h1>
-            </React.Fragment>
-        );
-    }
-}
+    return (
+        <React.Fragment>
+            <h1>&nbsp;</h1>
+        </React.Fragment>
+    )
 
-export default withRouter(connect(null, { logoutUser })(Logout));
+};
+
+export default Logout;
 

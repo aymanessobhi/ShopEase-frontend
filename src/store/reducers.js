@@ -1,24 +1,17 @@
-import { combineReducers } from 'redux';
+import { rootReducer } from 'saga-slice';
 
 // Front
 import Layout from './layout/reducer';
-
-// Authentication Module
-import Account from './auth/register/reducer';
-import Login from './auth/login/reducer';
 import Forget from './auth/forgetpwd/reducer';
+import userSlice from '../sagas/userSlice';
+import dataSlice from '../sagas/dataSlice';
 
+const modules = [userSlice, dataSlice ];
 
-const rootReducer = combineReducers({
-
+const appReducer = rootReducer(modules, {
     // public
     Layout,
-
-    // Authentication
-    Account,
-    Login,
     Forget,
-
 });
 
-export default rootReducer;
+export default appReducer;

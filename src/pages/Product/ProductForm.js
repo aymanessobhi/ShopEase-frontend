@@ -21,8 +21,9 @@ const initForm = {
     costPerItem: '',
     profit: '',
     margin: '',
-    track:'',
+    trackQte:'',
     weight: '',
+    unit:'',
     shipping: false,
     skuBarcode: false,
 }
