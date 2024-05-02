@@ -11,6 +11,7 @@ import translationSP from './locales/sp/translation.json';
 const resources = {
   fr: {
     translation: {
+      discountt:"discount",
       product: {
         title: "Titre",
         description: "Description",
