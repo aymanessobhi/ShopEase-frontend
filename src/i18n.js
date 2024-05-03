@@ -73,7 +73,61 @@ const resources = {
         manage:'Gérer les réductions et les promotions',
         createDiscountDescription: "Créez des codes de réduction et des réductions automatiques qui s'appliquent lors du paiement. Vous pouvez également utiliser des réductions avec des prix comparatifs.",
         createDiscount:'Créer une réduction',
-        pricesLink:'prix comparatifs'
+        pricesLink:'prix comparatifs',
+        amountOffProducts: "Montant de réduction sur les produits",
+        method: "Méthode",
+        discountCode: "Code de réduction",
+        automaticDiscount: "Réduction automatique",
+        generateCode: "Générer un code",
+        adviceDiscountCode: "Conseil pour le code de réduction",
+        autoCode: "Code automatique",
+        adviceAuto: "Conseil pour le code automatique",
+        percentage: "Pourcentage",
+        fixedAmount: "Montant fixe",
+        specification: "Spécification",
+        collections: "Collections",
+        products: "Produits",
+        searchCollections: "Rechercher des collections",
+        searchProducts: "Rechercher des produits",
+        OncePerOrder: "Une fois par commande",
+        itemizedDiscount: "Remise par article",
+        minimumPurchaseRequirements: "Exigences d'achat minimum",
+        minimumPurchaseDescription: "Description de l'achat minimum",
+        noMinimumRequirements: "Aucune exigence minimale",
+        minimumPurchaseAmount: "Montant d'achat minimum",
+        enterAmount: "Entrez le montant",
+        minimumQuantityOfItems: "Quantité minimale d'articles",
+        enterQuantity: "Entrez la quantité",
+        customerEligibility: "Éligibilité des clients",
+        customerEligibilityDescription: "Description de l'éligibilité des clients",
+        allCustomers: "Tous les clients",
+        specificCustomerSegments: "Segments de clients spécifiques",
+        specificSegmentsPlaceholder: "Saisissez les segments spécifiques",
+        specificCustomers: "Clients spécifiques",
+        specificCustomersPlaceholder: "Saisissez les clients spécifiques",
+        maximumDiscountUses: "Utilisations maximales de la réduction",
+        limitTotalUsage: "Limiter l'utilisation totale",
+        totalUsageLimit: "Limite d'utilisation totale",
+        limitToPerCustomer: "Limite par client",
+        combinesWith: "Combine avec",
+        combinesWithDescription: "Description de la combinaison",
+        largeDiscountWarning: "Avertissement de grosse réduction",
+        productDiscounts: "Réductions sur les produits",
+        productDiscountsInfo: "Informations sur les réductions sur les produits",
+        orderDiscounts: "Réductions sur les commandes",
+        orderDiscountsInfo: "Informations sur les réductions sur les commandes",
+        shippingDiscounts: "Réductions sur l'expédition",
+        shippingDiscountsInfo: "Informations sur les réductions sur l'expédition",
+        activeDates: "Dates actives",
+        startDate: "Date de début",
+        startTime: "Heure de début",
+        setEndDate: "Définir une date de fin",
+        endDate: "Date de fin",
+        endTime: "Heure de fin"
+      },
+      purchase: {
+        adviceA: "Conseil A",
+        adviceB: "Conseil B"
       },
       message: {
         required: "Champ obligatoire"
@@ -89,7 +143,8 @@ const resources = {
         upload:"Données",
         close:"Annuler",
         confirm:"Confirmer",
-        new:"Créer"
+        new:"Créer",
+        browser: "Parcourir"
 
       },
       text:{
@@ -141,8 +196,6 @@ i18n
   .init({
     resources,
     lng: "fr",
-
-
     interpolation: {
       escapeValue: false, // react already safes from xss
     },

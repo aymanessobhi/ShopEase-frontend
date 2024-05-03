@@ -9,6 +9,11 @@ const DiscountValue = ({ formik }) => {
     const { getFieldProps, values } = formik;
     const [discountValue, setDiscountValue] = useState('percentage');
     const [modalOpen, setModalOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState('collections');
+
+    const handleSpecificationChange = (e) => {
+        setSelectedOption(e.target.value);
+    };
 
     const handleDiscountChange = (e) => {
         setDiscountValue(e.target.value);
@@ -19,9 +24,12 @@ const DiscountValue = ({ formik }) => {
     };
 
     const handleBrowserClick = () => {
-        if (values.specification === 'collections' || values.specification === 'products') {
+        if (selectedOption === 'collections') {
+            toggleModal();
+        }else if(selectedOption === 'products'){
             toggleModal();
         }
+        
     };
 
     return (
@@ -49,7 +57,7 @@ const DiscountValue = ({ formik }) => {
                                 </div>
                             </Col>
                             {discountValue === 'percentage' && (
-                                <Col md="4">
+                                <Col md="2">
                                     <div className="mt-4">
                                         <AvField
                                             {...getFieldProps('percentage')}
@@ -58,8 +66,7 @@ const DiscountValue = ({ formik }) => {
                                             errorMessage={t('message.required')}
                                             className="form-control"
                                             validate={{ required: { value: true } }}
-                                            id="percentage"
-                                        />
+                                            id="percentage" />
                                     </div>
                                 </Col>
                             )}
@@ -90,8 +97,10 @@ const DiscountValue = ({ formik }) => {
                                         errorMessage={t('message.required')}
                                         className="form-control"
                                         validate={{ required: { value: true } }}
+                                        onChange={handleSpecificationChange}
                                         id="specification"
                                     >
+                                        <option>Select</option>
                                         <option value="collections">{t('discount.collections')}</option>
                                         <option value="products">{t('discount.products')}</option>
                                     </AvField>
@@ -99,15 +108,28 @@ const DiscountValue = ({ formik }) => {
                             </Col>
                             <Col md="10">
                                 <div className="mt-1">
-                                    <AvField
-                                        {...getFieldProps('searchCollections')}
-                                        placeholder={t('discount.searchCollections')}
-                                        type="text"
-                                        errorMessage={t('message.required')}
-                                        className="form-control"
-                                        validate={{ required: { value: true } }}
-                                        id="searchCollections"
-                                    />
+                                    {selectedOption === 'collections' && (
+                                        <AvField
+                                            {...getFieldProps('searchCollections')}
+                                            placeholder={t('discount.searchCollections')}
+                                            type="text"
+                                            errorMessage={t('message.required')}
+                                            className="form-control"
+                                            validate={{ required: { value: true } }}
+                                            id="searchCollections"
+                                        />
+                                    )}
+                                    {selectedOption === 'products' && (
+                                        <AvField
+                                            {...getFieldProps('searchProducts')}
+                                            placeholder={t('discount.searchProducts')}
+                                            type="text"
+                                            errorMessage={t('message.required')}
+                                            className="form-control"
+                                            validate={{ required: { value: true } }}
+                                            id="searchProducts"
+                                        />
+                                    )}
                                 </div>
                             </Col>
                             <Col md="2">
@@ -141,12 +163,12 @@ const DiscountValue = ({ formik }) => {
                 </CardBody>
             </Card>
             <Modal isOpen={modalOpen} toggle={toggleModal}>
-                <ModalHeader toggle={toggleModal}>{t(`modal.title.${values.specification}`)}</ModalHeader>
+                <ModalHeader toggle={toggleModal}>{t(`modal.title.${selectedOption}`)}</ModalHeader>
                 <ModalBody>
-                    {/* Content of the modal */}
                 </ModalBody>
             </Modal>
         </FormikProvider>
+
     );
 }
 

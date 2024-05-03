@@ -4,15 +4,15 @@ import { Button, ButtonGroup, Card, CardBody, Col, Label, Row } from 'reactstrap
 import { useTranslation } from 'react-i18next';
 import { FormikProvider } from 'formik';
 
-const AmountOffProducts = ({ formik }) => {
+const AmountOffProducts = ({ formik, handleButtonToggle }) => {
     const { t } = useTranslation('translation');
     const [selectedButton, setSelectedButton] = useState('discountCode');
     const { getFieldProps } = formik;
-
     const [generatedCode, setGeneratedCode] = useState('');
 
     const handleButtonClick = (value) => {
         setSelectedButton(value);
+        handleButtonToggle(value === 'automaticDiscount');
     };
 
     const generateRandomCode = () => {
