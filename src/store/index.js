@@ -7,7 +7,6 @@ import appReducer from './reducers';
 import appSaga from './sagas';
 import { rootSaga } from 'saga-slice';
 
-import dataSlice from '../modules/panne/saga/dataSlice';
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const modules = [userSlice, dataSlice ];

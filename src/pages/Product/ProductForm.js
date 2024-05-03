@@ -56,7 +56,7 @@ const ProductForm = () => {
             let payload = {
                 data: values,
                 onSuccess: () => {
-                    navigate(DATABASE_EMPLOYE_PAGE);
+                    //navigate(DATABASE_EMPLOYE_PAGE);
                 }
             }
             //dispatch(empActions.create(payload))
