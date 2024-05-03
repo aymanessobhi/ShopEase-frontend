@@ -1,31 +1,56 @@
-import React, { Component } from "react";
-import { Container } from "reactstrap";
-
-//Import Breadcrumb
+import React, { useEffect, useState } from "react";
+import { Col, Container, Row } from "reactstrap";
 import Breadcrumbs from '../../components/Common/Breadcrumb';
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { dataActions } from "../../sagas/dataSlice";
 
-class Dashboard extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            breadcrumbItems: [
-                { title: "Nazox", link: "/" },
-                { title: "Dashboard", link: "#" },
-            ],
-        }
-    }
+function DashboardPage() {
+    const { t } = useTranslation('translation');
 
-    render() {
-        return (
-            <React.Fragment>
-                <div className="page-content">
-                    <Container fluid>
-                        <Breadcrumbs title="Dashboard" breadcrumbItems={this.state.breadcrumbItems} />
-                    </Container>
+    const { isFetching } = useSelector(state => state.data);
+
+    const breadcrumbItems = [
+        { title: "Main", link: "#" },
+        { title: t('menu.dashboard'), link: "#" }
+    ];
+
+    const reports = [
+        { icon: "ri-stack-line", title: "Figure X1", value: "1452", rate: "2.4%", desc: "From previous period" },
+        { icon: "ri-store-2-line", title: "Figure X2", value: "$ 38452", rate: "2.4%", desc: "From previous period" },
+        { icon: "ri-briefcase-4-line", title: "Figure X3", value: "$ 15.4", rate: "2.4%", desc: "From previous period" },
+    ]
+
+    const dispatch = useDispatch();
+
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    useEffect(() => {
+        setTimeout(() => {
+            dispatch(dataActions.loadData());
+          }, 3000);
+    }, [])
+
+return (
+    <React.Fragment>
+        {isFetching ? <div id="preloader">
+            <div id="status">
+                <div className="spinner">
+                    <i className="ri-loader-line spin-icon"></i>
                 </div>
-            </React.Fragment>
-        );
-    }
+            </div>
+        </div> :
+            <div className="page-content">
+                <Container fluid>
+
+                    <Breadcrumbs title={t('menu.dashboard')} breadcrumbItems={breadcrumbItems} />
+                    
+                </Container>
+            </div>}
+    </React.Fragment>
+);
+
+
 }
 
-export default Dashboard;
+export default DashboardPage;
