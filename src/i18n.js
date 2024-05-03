@@ -13,6 +13,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   fr: {
     translation: {
+      discountt:"discount",
       product: {
         title: "Titre",
         description: "Description",

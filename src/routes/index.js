@@ -4,7 +4,6 @@ import { Navigate } from "react-router-dom";
 // Authentication related pages
 import Login from "../pages/Authentication/Login";
 import Logout from "../pages/Authentication/Logout";
-import Register from "../pages/Authentication/Register";
 import ForgetPwd from "../pages/Authentication/ForgetPassword";
 import AuthLockScreen from "../pages/Authentication/AuthLockScreen";
 import Dashboard from "../pages/Dashboard";
@@ -19,14 +18,20 @@ import LocationPage from "../pages/Location";
 import StaffPage from "../pages/Staff";
 import StaffForm from "../pages/Staff/StaffForm";
 import DiscountPage from "../pages/Discount";
+import PercentageForm from "../pages/Discount/PercentageForm";
+import BuyXGetYForm from "../pages/Discount/BuyXGetYForm";
+import AmountOffProductForm from "../pages/Discount/AmountOffProductForm";
+import DiscountForm from "../pages/Discount/DiscountFrom";
+
 
 const authProtectedRoutes = [
-	{ path: "/dashboard", component: <Dashboard /> },
+	{ path: "/main/dashboard", component: <Dashboard /> },
 	{ path: "/base/location", component: <LocationPage /> },
 	{ path: "/base/location/new", component: <LocationForm /> },
 	{ path: "/base/product", component: <ProductPage /> },
 	{ path: "/base/staff", component: <StaffPage /> },
 	{ path: "/base/discount", component: <DiscountPage /> },
+	{ path: "/base/discount/new/:type", component: <DiscountForm /> },	
 	{ path: "/base/staff/new", component: <StaffForm /> },
 	{ path: "/base/product/new", component: <ProductForm /> },
 	{ path: "/base/customer", component: <CustomerPage /> },
@@ -40,7 +45,6 @@ const publicRoutes = [
 	{ path: "/logout", component: <Logout /> },
 	{ path: "/login", component: <Login /> },
 	{ path: "/forgot-password", component: <ForgetPwd /> },
-	{ path: "/register", component: <Register /> },
 	{ path: "/lock-screen", component: <AuthLockScreen /> },
 ];
 
