@@ -14,6 +14,9 @@ const resources = {
   fr: {
     translation: {
       discountt:"discount",
+      menu:{
+        dashboard:"Tableau de bord",
+      },
       product: {
         title: "Titre",
         description: "Description",
@@ -150,7 +153,8 @@ const resources = {
       text:{
         confirmation:"Confirmation",
         msgDelete:"Voulez vous supprimer cette ligne ?",
-      }
+      },
+      newlocation:"Location"
     }
   },
   

@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { AxiosInterceptor } from "../helpers/AxiosInterceptor";
 
 // const AppRoute = ({
 // 	component: Component,
@@ -32,9 +33,11 @@ const AppRoute = (props) => {
 		  <Navigate to={{ pathname: "/login", state: { from: props.location } }} />
 		);
 	  }
-	  return (<React.Fragment>
-		{props.children}
-	  </React.Fragment>);
+	  return (<AxiosInterceptor>
+		<React.Fragment>
+			{props.children}
+		</React.Fragment>
+	</AxiosInterceptor>);
 }
 
 export default AppRoute;
