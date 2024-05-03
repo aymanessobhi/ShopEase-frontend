@@ -67,13 +67,13 @@ const Address = ({ formik }) => {
                                 <div className="mb-3">
                                     <Label className="form-label" htmlFor="address">{t('location.postalcode')}</Label>
                                     <AvField
-                                        {...getFieldProps('postalcode')}
+                                        {...getFieldProps('postalCode')}
                                         type="text"
                                         placeholder={t('location.postalcode')}
                                         errorMessage={t('message.required')}
                                         className="form-control"
                                         validate={{ required: { value: true } }}
-                                        id="name"
+                                        id="postalcode"
                                     />
                                 </div>
                             </Col>
@@ -110,7 +110,7 @@ const Address = ({ formik }) => {
                                 <div className="mb-3">
                                 <Label className="form-label" htmlFor="phone"></Label>  
                                     <AvField
-                                        {...getFieldProps('appartment')}
+                                        {...getFieldProps('phone')}
                                         placeholder={t('location.phone')}
                                         type="text"
                                         errorMessage={t('message.required')}

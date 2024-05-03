@@ -5,14 +5,17 @@ import { loadData } from "../services/dataService";
 const dataSlice = createModule({
     name: "data",
     initialState: {
-        depts: [],
-        station:[],
-        equipe:[],
-        employee:[],
-        localite:[],
-        equipement:[],
-        categorie:[],
-        nationalite:[],
+        appliesTo: [],
+        customerEligib: [],
+        discountMethods: [],
+        discMinP: [],
+        discStatus: [],
+        discTypes: [],
+        discountValues: [],
+        prodStatus: [],
+        saleStatus: [],
+        units: [],
+        countries: [],
         isFetching: false,
         error: null
     },
@@ -21,13 +24,17 @@ const dataSlice = createModule({
             state.isFetching = true;
         },
         fetchedData: (state, payload) => {
-            state.depts = payload.body.depts;
-            state.station = payload.body.station;
-            state.equipe = payload.body.equipe;
-            state.employee = payload.body.employee;
-            state.equipement = payload.body.equipement;
-            state.categorie = payload.body.categorie;
-            state.nationalite = payload.body.nationalite;
+            state.appliesTo = payload.body.appliesTo;
+            state.customerEligib = payload.body.customerEligib;
+            state.discountMethods = payload.body.discountMethods;
+            state.discMinP = payload.body.discMinP;
+            state.discStatus = payload.body.discStatus;
+            state.discTypes = payload.body.discTypes;
+            state.discountValues = payload.body.discountValues;
+            state.prodStatus = payload.body.prodStatus;
+            state.saleStatus = payload.body.saleStatus;
+            state.units = payload.body.units;
+            state.countries = payload.body.countries;
         },
         finishFetching: (state) => {
             state.isFetching = false;

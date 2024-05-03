@@ -20,8 +20,8 @@ const FulfillmentDetails = ({ formik }) => {
                             <Row>
                             <Col md="4">
                                 <div className="mb-3 form-check">
-                                    <input type="checkbox" {...getFieldProps('taxable')} className="form-check-input" id="taxable" />
-                                    <Label className="form-check-label" htmlFor="taxable">{t('location.fulfillment')}</Label>
+                                    <input type="checkbox" {...getFieldProps('fulfillOnlineOrders')} className="form-check-input" id="fulfillOnlineOrders" />
+                                    <Label className="form-check-label" htmlFor="fulfillOnlineOrders">{t('location.fulfillment')}</Label>
                                     <p>{t('location.OnlineAvailability')}</p>
                                 </div>
                             </Col>

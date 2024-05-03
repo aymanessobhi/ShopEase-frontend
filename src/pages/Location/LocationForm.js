@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import Breadcrumbs from '../../components/Common/Breadcrumb';
-import { Card, CardBody, Container} from "reactstrap";
+import { Card, CardBody, Container, Button } from "reactstrap";
 import LocationName from './LocationName';
 import Address from './Address';
 import FulfillmentDetails from './FulfillmentDetails';
@@ -14,7 +14,7 @@ const initForm = {
     locationName: '',
     country: '',
     address: '',
-    apartment: '',
+    appartment: '',
     postalCode: '',
     city: '',
     phone: '',
@@ -45,6 +45,7 @@ const LocationForm = () => {
         initialValues: { ...formState },
         enableReinitialize: true,
         onSubmit: (values) => {
+            console.log("Form Values:", values); // Log form values to console
             let payload = {
                 data: values,
                 onSuccess: () => {
@@ -61,6 +62,10 @@ const LocationForm = () => {
         { title: t('newprod'), link: "#" }
     ];
 
+    const handleFormSubmit = () => {
+        formik.handleSubmit();
+    };
+
     return (
         <React.Fragment>
             <div className="page-content">
@@ -70,10 +75,11 @@ const LocationForm = () => {
                     <Address formik={formik} /> 
                     <FulfillmentDetails formik={formik} /> 
                     <PointOfSaleSection formik={formik} />
+                    <Button color="primary" onClick={handleFormSubmit}>Submit</Button> 
                 </Container>
             </div>
         </React.Fragment>
     )
 }
 
-export default LocationForm
+export default LocationForm;
