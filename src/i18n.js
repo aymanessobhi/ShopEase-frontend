@@ -39,7 +39,6 @@ const resources = {
         name: 'Nom',
         identification:'Donnez à cet emplacement un nom court pour le rendre facile à identifier. Vous verrez ce nom dans des zones comme les commandes et les produits. Si cet emplacement propose un retrait en magasin, il sera visible par vos clients lors du paiement et dans les notifications.',
         address:'Adresse',
-        addresss:'Adresse',
         country:'Pays',
         appartment:'Appartement',
         postalcode: 'Code postal',
@@ -103,6 +102,21 @@ const resources = {
     translation: {
       product:{
         
+      },
+      location: {
+        name: 'Name',
+        identification:'Donnez à cet emplacement un nom court pour le rendre facile à identifier. Vous verrez ce nom dans des zones comme les commandes et les produits. Si cet emplacement propose un retrait en magasin, il sera visible par vos clients lors du paiement et dans les notifications.',
+        address:'Address',
+        country:'Country',
+        appartment:'Appartment',
+        postalcode: 'Postal Code',
+        city:'City',
+        phone:'Phone',
+        fulfillmentDetailes: "Détails d'exécution",
+        fulfillment:'Exécution',
+        pointOfSale:'Point de vente',
+        OnlineAvailability:'Inventaire à cet emplacement est disponible à la vente en ligne.',
+        posDescription:'Commencez à vendre en personne à cet emplacement avec votre abonnement POS Lite.'
       },
       login: {
         title: "Connectez-vous pour continuer sur Performance Pathfinder Metrics.",

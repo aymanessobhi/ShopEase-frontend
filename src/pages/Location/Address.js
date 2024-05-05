@@ -12,14 +12,14 @@ const Address = ({ formik }) => {
     <FormikProvider value={formik}>
             <Card>
                 <CardBody>
-                    <AvForm>
+                    <AvForm >
                     <h4 className="card-title">{t('location.address')}</h4>
                         <Row>
                             <Col md="12">
                                 <div className="mb-3">
                                     <Label className="form-label" htmlFor="country">{t('location.country')}</Label>
                                     <AvField
-                                        {...getFieldProps('country')}
+                                        {...getFieldProps('country_id')}
                                         placeholder={t('location.country')}
                                         type="text"
                                         errorMessage={t('message.required')}
@@ -67,7 +67,7 @@ const Address = ({ formik }) => {
                                 <div className="mb-3">
                                     <Label className="form-label" htmlFor="address">{t('location.postalcode')}</Label>
                                     <AvField
-                                        {...getFieldProps('postalcode')}
+                                        {...getFieldProps('postal_code')}
                                         type="text"
                                         placeholder={t('location.postalcode')}
                                         errorMessage={t('message.required')}
@@ -93,7 +93,7 @@ const Address = ({ formik }) => {
                             </Col>
                         </Row>
                         <Row>
-                            <Col md="2">
+                            {/* <Col md="2">
                                 <div className="mb-3">
                                     <Label className="form-label" htmlFor="flag">{t('location.phone')}</Label>
                                     <AvField
@@ -105,12 +105,12 @@ const Address = ({ formik }) => {
                                         id="name"
                                     />
                                 </div>
-                            </Col>
+                            </Col> */}
                             <Col md="10">
-                                <div className="mb-3">
+                                <div className="mb-2">
                                 <Label className="form-label" htmlFor="phone"></Label>  
                                     <AvField
-                                        {...getFieldProps('appartment')}
+                                        {...getFieldProps('phone')}
                                         placeholder={t('location.phone')}
                                         type="text"
                                         errorMessage={t('message.required')}
@@ -121,6 +121,7 @@ const Address = ({ formik }) => {
                                 </div>
                             </Col>
                         </Row>
+                        
                     </AvForm>
                 </CardBody>
             </Card>

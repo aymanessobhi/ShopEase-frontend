@@ -4,18 +4,23 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import Breadcrumbs from '../../components/Common/Breadcrumb';
-import { Card, CardBody, Container} from "reactstrap";
+import { Card, CardBody,Button, Container} from "reactstrap";
 import LocationName from './LocationName';
 import Address from './Address';
 import FulfillmentDetails from './FulfillmentDetails';
 import PointOfSaleSection from './PointOfSaleSection';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
+import { locationActions } from "../../sagas/locationSlice";
+
+
+
 
 const initForm = {
-    locationName: '',
-    country: '',
+    name: '',
+    country_id: '',
     address: '',
-    apartment: '',
-    postalCode: '',
+    appartment: '',
+    postal_code: '',
     city: '',
     phone: '',
     fulfillOnlineOrders: false,
@@ -30,28 +35,13 @@ const LocationForm = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (id) {
-            let payload = {
-                id,
-                onSuccess: (data) => {
-                    setForm({ ...data });
-                }
-            }
-           // dispatch(empActions.find(payload))
-        }
     }, []);
 
     const formik = useFormik({
         initialValues: { ...formState },
         enableReinitialize: true,
         onSubmit: (values) => {
-            let payload = {
-                data: values,
-                onSuccess: () => {
-                    //navigate(DATABASE_EMPLOYE_PAGE);
-                }
-            }
-            //dispatch(empActions.create(payload))
+            dispatch(locationActions.location({ query: values, history: navigate  }));
         }
     });
 
@@ -63,14 +53,23 @@ const LocationForm = () => {
 
     return (
         <React.Fragment>
-            <div className="page-content">
+            <div className="page-content">                
+            <AvForm className="form-horizontal" onValidSubmit={formik.handleSubmit} >
+
                 <Container fluid={true}>
+
                     <Breadcrumbs title={t('newlocation')} breadcrumbItems={breadcrumbItems} />
                     <LocationName formik={formik} /> 
                     <Address formik={formik} /> 
                     <FulfillmentDetails formik={formik} /> 
                     <PointOfSaleSection formik={formik} />
+                    <div className="mt-4 text-center">
+                    <Button color="primary" className="w-md waves-effect waves-light" type="submit">{t('actions.save')}</Button>
+                
+
+                    </div>
                 </Container>
+                </AvForm>
             </div>
         </React.Fragment>
     )
