@@ -1,12 +1,26 @@
-import React from 'react'
+import React, { useMemo, useEffect, useState } from "react";
 import { AvField, AvForm } from 'availity-reactstrap-validation';
 import { useTranslation } from 'react-i18next';
 import { Button, Card, CardBody, Col, Label, Row } from 'reactstrap';
 import { FormikProvider } from 'formik';
+import { useDispatch ,useSelector} from 'react-redux';
+import { countryActions } from "../../sagas/countrySlice";
+
+
 
 const Address = ({ formik }) => {
     const { t } = useTranslation('translation');
     const { getFieldProps } = formik;
+    const { countries } = useSelector(state => state.country);
+
+    const handleChangeCountry = ({ target }) => {
+        formik.setFieldValue('country', countries.find(d => d.code === target.value));
+    }
+    const dispatch = useDispatch();
+    useEffect(() => {
+          dispatch(countryActions.countryfetch());  
+  }, []);
+
 
   return (
     <FormikProvider value={formik}>
@@ -29,6 +43,24 @@ const Address = ({ formik }) => {
                                     />
                                 </div>
                             </Col>
+                            
+                            <Col md="6">
+                                <div className="mb-3">
+                                    <Label className="formlabel">{t('employef.departement')}</Label>
+                                    <Col md={10}>
+                                        <select className="form-control" onChange={handleChangeCountry}>
+                                            <option>Sélectionner...</option>
+                                            {
+                                                countries.map((option, index) =>
+                                                    <option key={index} value={option.code}>
+                                                        {option.description}
+                                                    </option>
+                                                )}
+                                        </select>
+                                    </Col>
+                                </div>
+                            </Col>
+
                         </Row>
                         <Row>
                             <Col md="12">

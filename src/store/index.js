@@ -4,6 +4,8 @@ import createSagaMiddleware from 'redux-saga'
 import userSlice from '../sagas/userSlice';
 import dataSlice from '../sagas/dataSlice';
 import locationSlice from '../sagas/locationSlice';
+import countrySlice from '../sagas/countrySlice';
+
 
 import appReducer from './reducers';
 import appSaga from './sagas';
@@ -12,7 +14,7 @@ import { rootSaga } from 'saga-slice';
 // import dataSlice from '../modules/panne/saga/dataSlice';
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const modules = [userSlice,locationSlice, dataSlice ];
+const modules = [userSlice,locationSlice, dataSlice ,countrySlice];
 
 
 const store = createStore(appReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
