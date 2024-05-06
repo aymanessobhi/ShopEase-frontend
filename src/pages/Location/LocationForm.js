@@ -11,6 +11,8 @@ import FulfillmentDetails from './FulfillmentDetails';
 import PointOfSaleSection from './PointOfSaleSection';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { locationActions } from "../../sagas/locationSlice";
+import { countryActions } from "../../sagas/countrySlice";
+
 
 
 
@@ -36,7 +38,7 @@ const LocationForm = () => {
 
     useEffect(() => {
     }, []);
-
+    dispatch(countryActions.countryfetch());  
     const formik = useFormik({
         initialValues: { ...formState },
         enableReinitialize: true,

@@ -71,11 +71,6 @@ const LocationPage = () => {
       useEffect(() => {
             dispatch(locationActions.locationfetch());  
     }, []);
-
-    const test = useSelector((state) => state.location);
-    console.log('testaaaa',locations);
-
-
     return (
         <React.Fragment>
             <div className="page-content">

@@ -16,12 +16,6 @@ const Address = ({ formik }) => {
     const handleChangeCountry = ({ target }) => {
         formik.setFieldValue('country', countries.find(d => d.code === target.value));
     }
-    const dispatch = useDispatch();
-    useEffect(() => {
-          dispatch(countryActions.countryfetch());  
-  }, []);
-
-
   return (
     <FormikProvider value={formik}>
             <Card>
@@ -29,29 +23,14 @@ const Address = ({ formik }) => {
                     <AvForm >
                     <h4 className="card-title">{t('location.address')}</h4>
                         <Row>
-                            <Col md="12">
-                                <div className="mb-3">
-                                    <Label className="form-label" htmlFor="country">{t('location.country')}</Label>
-                                    <AvField
-                                        {...getFieldProps('country_id')}
-                                        placeholder={t('location.country')}
-                                        type="text"
-                                        errorMessage={t('message.required')}
-                                        className="form-control"
-                                        validate={{ required: { value: true } }}
-                                        id="country"
-                                    />
-                                </div>
-                            </Col>
                             
                             <Col md="6">
                                 <div className="mb-3">
-                                    <Label className="formlabel">{t('employef.departement')}</Label>
+                                    <Label className="formlabel">{t('location.country')}</Label>
                                     <Col md={10}>
                                         <select className="form-control" onChange={handleChangeCountry}>
                                             <option>Sélectionner...</option>
-                                            {
-                                                countries.map((option, index) =>
+                                            { countries.map((option, index) =>
                                                     <option key={index} value={option.code}>
                                                         {option.description}
                                                     </option>
