@@ -34,6 +34,7 @@ const locationSlice = createModule({
   sagas: (A) => ({
     
     *[A.location]({ payload: { query, history }}) {
+      console.log('slioce',query);
       try {
         const { data } = yield location(query);
         yield put(A.locationSuccess(data));

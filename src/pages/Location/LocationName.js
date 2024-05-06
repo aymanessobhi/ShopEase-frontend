@@ -20,7 +20,7 @@ const LocationName = ({ formik }) => {
                                     {t('location.identification')}
                                     </p>
                                     <AvField
-                                        {...getFieldProps('name')}
+                                        {...getFieldProps('dto.name')}
                                         placeholder={t('location.name')}
                                         type="text"
                                         errorMessage={t('message.required')}

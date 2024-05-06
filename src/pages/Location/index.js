@@ -67,8 +67,10 @@ const LocationPage = () => {
           },],
         []
       );
+      
       const dispatch = useDispatch();
       useEffect(() => {
+        console.log('locations',locations);
             dispatch(locationActions.locationfetch());  
     }, []);
     return (

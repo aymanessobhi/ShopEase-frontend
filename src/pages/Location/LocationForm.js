@@ -12,21 +12,24 @@ import PointOfSaleSection from './PointOfSaleSection';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { locationActions } from "../../sagas/locationSlice";
 import { countryActions } from "../../sagas/countrySlice";
+import { useSelector} from 'react-redux';
+
 
 
 
 
 
 const initForm = {
-    name: '',
-    country_id: '',
+    dto:{ name: '',
     address: '',
     appartment: '',
     postal_code: '',
     city: '',
     phone: '',
     fulfillOnlineOrders: false,
-    posEnabled: false,
+    posEnabled: false,},
+    countryId: 1
+   
 }
 
 const LocationForm = () => {
@@ -35,14 +38,20 @@ const LocationForm = () => {
     let { id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { countries } = useSelector(state => state.country);
+
+    
 
     useEffect(() => {
+        dispatch(countryActions.countryfetch());  
+        console.log('countries',countries);
     }, []);
-    dispatch(countryActions.countryfetch());  
+  
     const formik = useFormik({
         initialValues: { ...formState },
         enableReinitialize: true,
         onSubmit: (values) => {
+            console.log('values',values);
             dispatch(locationActions.location({ query: values, history: navigate  }));
         }
     });
@@ -62,7 +71,7 @@ const LocationForm = () => {
 
                     <Breadcrumbs title={t('newlocation')} breadcrumbItems={breadcrumbItems} />
                     <LocationName formik={formik} /> 
-                    <Address formik={formik} /> 
+                    <Address formik={formik} countries={countries} /> 
                     <FulfillmentDetails formik={formik} /> 
                     <PointOfSaleSection formik={formik} />
                     <div className="mt-4 text-center">
