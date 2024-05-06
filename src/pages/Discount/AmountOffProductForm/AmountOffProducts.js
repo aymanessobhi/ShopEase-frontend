@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 const AmountOffProducts = ({ formik, handleButtonToggle }) => {
     const { t } = useTranslation('translation');
-    const [selectedButton, setSelectedButton] = useState('discountCode');
+    const [selectedButton, setSelectedButton] = useState('CODE');
     const { getFieldProps, setFieldValue } = formik;
     const [generatedCode, setGeneratedCode] = useState('');
     const { discountMethods } = useSelector(state => state.data);
