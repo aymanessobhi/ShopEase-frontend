@@ -3,6 +3,7 @@ import { Button, Card, CardBody, Col, Modal, ModalHeader, ModalBody, ModalFooter
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import discount from "../../assets/images/discount.png";
+import { useSelector } from 'react-redux';
 
 const discountTypes = [
     { value: 'amountOffProduct', label: 'Amount Off Product' },
@@ -14,10 +15,12 @@ const EmptyDiscount = () => {
     const { t } = useTranslation('translation');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
+    const { discTypes } = useSelector(state => state.data);
 
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
     const handleDiscountTypeChange = (type) => {
+        console.log(type)
         toggleModal();
         navigate(`/base/discount/new/${type}`);
     };
@@ -43,11 +46,11 @@ const EmptyDiscount = () => {
                     <ModalHeader toggle={toggleModal}>{t('discount.createDiscount')}</ModalHeader>
                     <ModalBody>
                         <div>
-                            {discountTypes.map((type) => (
-                                <div key={type.value}>
-                                    <Card style={{ cursor: 'pointer', backgroundColor: '#f8f9fa', border: '1px solid #dee2e6', borderRadius: '0.25rem' }} onClick={() => handleDiscountTypeChange(type.value)}>
+                            {discTypes.map((type) => (
+                                <div key={type.code}>
+                                    <Card style={{ cursor: 'pointer', backgroundColor: '#f8f9fa', border: '1px solid #dee2e6', borderRadius: '0.25rem' }} onClick={() => handleDiscountTypeChange(type.code)}>
                                         <CardBody>
-                                            <p>{type.label}</p>
+                                            <p>{type.description}</p>
                                         </CardBody>
                                     </Card>
                                 </div>

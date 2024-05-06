@@ -15,7 +15,7 @@ import ActiveDates from './ActiveDates';
 import MaximumDiscountUses from './MaximumDiscountUses';
 
 const initForm = {
-    discountMethod: 'discountCode',
+    discountMethod: 'CODE',
     discountCode: '',
     autoCode: '', 
     discountValue: '', 

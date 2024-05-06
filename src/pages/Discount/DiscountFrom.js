@@ -7,11 +7,11 @@ import { useParams } from 'react-router';
 const DiscountForm = () => {
     const { type } = useParams();
     switch (type) {
-        case 'amountOffProduct':
+        case 'OFF_PRODUCT':
             return <AmountOffProductForm />;
-        case 'percentage':
+        case 'AMOUNT_OFF':
             return <PercentageForm />;
-        case 'buyXgetY':
+        case 'BUYGET':
             return <BuyXGetYForm />;
         default:
             return null;

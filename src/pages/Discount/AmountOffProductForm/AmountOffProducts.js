@@ -3,16 +3,18 @@ import { AvField, AvForm } from 'availity-reactstrap-validation';
 import { Button, ButtonGroup, Card, CardBody, Col, Label, Row } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
 import { FormikProvider } from 'formik';
+import { useSelector } from 'react-redux';
 
 const AmountOffProducts = ({ formik, handleButtonToggle }) => {
     const { t } = useTranslation('translation');
     const [selectedButton, setSelectedButton] = useState('discountCode');
     const { getFieldProps, setFieldValue } = formik;
     const [generatedCode, setGeneratedCode] = useState('');
+    const { discountMethods } = useSelector(state => state.data);
 
     const handleButtonClick = (value) => {
         setSelectedButton(value);
-        handleButtonToggle(value === 'automaticDiscount');
+        handleButtonToggle(value === 'AUTOMATIC');
         setFieldValue('discountMethod',value)
     };
 
@@ -31,36 +33,27 @@ const AmountOffProducts = ({ formik, handleButtonToggle }) => {
                         <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#333' }}>{t('discount.method')}</span>
                         <Row>
                             <Col>
-                                <ButtonGroup className="mt-3" style={{ boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
-                                    <Button
-                                        color="primary"
-                                        style={{
-                                            backgroundColor: selectedButton === 'discountCode' ? '#CCCCCC' : '#FFFFFF',
-                                            border: 'none',
-                                            marginRight: '-1px',
-                                            color: selectedButton === 'automaticDiscount' ? '#000000' : null,
-                                            boxShadow: selectedButton === 'discountCode' ? 'inset 0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none'
-                                        }}
-                                        onClick={() => handleButtonClick('discountCode')}
-                                    >
-                                        {t('discount.discountCode')}
-                                    </Button>
-                                    <Button
-                                        color="primary"
-                                        style={{
-                                            backgroundColor: selectedButton === 'automaticDiscount' ? '#CCCCCC' : '#FFFFFF',
-                                            border: 'none',
-                                            color: selectedButton === 'discountCode' ? '#000000' : null,
-                                            boxShadow: selectedButton === 'automaticDiscount' ? 'inset 0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none'
-                                        }}
-                                        onClick={() => handleButtonClick('automaticDiscount')}
-                                    >
-                                        {t('discount.automaticDiscount')}
-                                    </Button>
+                            <ButtonGroup className="mt-3" style={{ boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
+                                    {discountMethods.map(method => (
+                                        <Button
+                                            key={method.code}
+                                            color="primary"
+                                            style={{
+                                                backgroundColor: selectedButton === method.code ? '#CCCCCC' : '#FFFFFF',
+                                                border: 'none',
+                                                marginRight: '-1px',
+                                                color: selectedButton === method.code ? '#000000' : '#000000',
+                                                boxShadow: selectedButton === method.code ? 'inset 0px 4px 6px rgba(0, 0, 0, 0.1)' : 'none'
+                                            }}
+                                            onClick={() => handleButtonClick(method.code)}
+                                        >
+                                            {method.description}
+                                        </Button>
+                                    ))}
                                 </ButtonGroup>
                             </Col>
                         </Row>
-                        {selectedButton === 'discountCode' && (
+                        {selectedButton === 'CODE' && (
                             <Row>
                                 <Col md="12">
                                     <div className="mt-3">
@@ -90,7 +83,7 @@ const AmountOffProducts = ({ formik, handleButtonToggle }) => {
                                 </Col>
                             </Row>
                         )}
-                        {selectedButton === 'automaticDiscount' && (
+                        {selectedButton === 'AUTOMATIC' && (
                             <Row>
                                 <Col md="12">
                                     <div className="mt-3">
