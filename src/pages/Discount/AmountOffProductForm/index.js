@@ -18,10 +18,10 @@ const initForm = {
     discountMethod: 'discountCode',
     discountCode: '',
     autoCode: '', 
-    discountValue: 'percentage', 
+    discountValue: '', 
     percentage: '', 
     amount: '', 
-    specification: 'collections', 
+    specification: '', 
     searchCollections: '',
     searchProducts: '', 
     OncePerOrder: false, 
@@ -78,6 +78,7 @@ const AmountOffProductForm = () => {
         initialValues: { ...formState },
         enableReinitialize: true,
         onSubmit: (values) => {
+            console.log("Form values:", values);
             let payload = {
                 data: values,
                 onSuccess: () => {

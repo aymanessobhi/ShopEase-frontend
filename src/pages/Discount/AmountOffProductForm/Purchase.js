@@ -7,7 +7,6 @@ import { FormikProvider } from 'formik';
 const Purchase = ({ formik, automaticDiscountClicked }) => {
     const { t } = useTranslation('translation');
     const { getFieldProps, values } = formik;
-    console.log('formik object:', formik);
 
     return (
         <FormikProvider value={formik}>

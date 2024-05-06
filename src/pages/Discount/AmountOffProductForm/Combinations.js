@@ -6,25 +6,28 @@ import { FormikProvider } from 'formik';
 
 const Combinations = ({ formik, automaticDiscountClicked }) => {
     const { t } = useTranslation('translation');
-    const { getFieldProps, values } = formik;
+    const { getFieldProps, setFieldValue } = formik;
     const [showProductDiscountsInfo, setShowProductDiscountsInfo] = useState(false);
     const [showOrderDiscountsInfo, setShowOrderDiscountsInfo] = useState(false);
     const [showShippingDiscountsInfo, setShowShippingDiscountsInfo] = useState(false);
 
     const handleProductDiscountsChange = () => {
         setShowProductDiscountsInfo(!showProductDiscountsInfo);
+        setFieldValue('combineWithProductDiscounts', !showProductDiscountsInfo);
     };
 
     const handleOrderDiscountsChange = () => {
         setShowOrderDiscountsInfo(!showOrderDiscountsInfo);
+        setFieldValue('combineWithOrderDiscounts', !showOrderDiscountsInfo);
     };
 
     const handleShippingDiscountsChange = () => {
         setShowShippingDiscountsInfo(!showShippingDiscountsInfo);
+        setFieldValue('combineWithShippingDiscounts', !showShippingDiscountsInfo);
     };
 
     const isAnyCheckboxChecked = () => {
-        return showOrderDiscountsInfo; // Return true if the second checkbox is checked
+        return showOrderDiscountsInfo; 
     };
 
     return (
@@ -47,7 +50,7 @@ const Combinations = ({ formik, automaticDiscountClicked }) => {
                                     {...getFieldProps('combineWithProductDiscounts')}
                                     value="combineWithProductDiscounts"
                                     id="combineWithProductDiscounts"
-                                    onChange={handleProductDiscountsChange}
+                                    onClick={handleProductDiscountsChange}
                                 />
                                 <label className="form-check-label" htmlFor="combineWithProductDiscounts">{t('discount.productDiscounts')}</label>
                                 {showProductDiscountsInfo && (
@@ -61,7 +64,7 @@ const Combinations = ({ formik, automaticDiscountClicked }) => {
                                     {...getFieldProps('combineWithOrderDiscounts')}
                                     value="combineWithOrderDiscounts"
                                     id="combineWithOrderDiscounts"
-                                    onChange={handleOrderDiscountsChange}
+                                    onClick={handleOrderDiscountsChange}
                                 />
                                 <label className="form-check-label" htmlFor="combineWithOrderDiscounts">{t('discount.orderDiscounts')}</label>
                                 {showOrderDiscountsInfo && (
@@ -75,7 +78,7 @@ const Combinations = ({ formik, automaticDiscountClicked }) => {
                                     {...getFieldProps('combineWithShippingDiscounts')}
                                     value="combineWithShippingDiscounts"
                                     id="combineWithShippingDiscounts"
-                                    onChange={handleShippingDiscountsChange}
+                                    onClick={handleShippingDiscountsChange}
                                 />
                                 <label className="form-check-label" htmlFor="combineWithShippingDiscounts">{t('discount.shippingDiscounts')}</label>
                                 {showShippingDiscountsInfo && (

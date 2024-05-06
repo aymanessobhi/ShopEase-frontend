@@ -3,7 +3,6 @@ import { AvField, AvForm } from 'availity-reactstrap-validation';
 import { Button, Card, CardBody, Col, Label, Row, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
 import { FormikProvider } from 'formik';
-
 const DiscountValue = ({ formik }) => {
     const { t } = useTranslation('translation');
     const { getFieldProps, values } = formik;
@@ -11,12 +10,15 @@ const DiscountValue = ({ formik }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState('collections');
 
+
     const handleSpecificationChange = (e) => {
         setSelectedOption(e.target.value);
+        formik.setFieldValue('specification', selectedOption);
     };
 
     const handleDiscountChange = (e) => {
         setDiscountValue(e.target.value);
+        formik.setFieldValue('discountValue', discountValue);
     };
 
     const toggleModal = () => {

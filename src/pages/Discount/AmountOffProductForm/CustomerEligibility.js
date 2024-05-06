@@ -28,6 +28,7 @@ const CustomerEligibility = ({ formik }) => {
                                 {values.customerEligibility === 'specificSegments' && (
                                     <div className="mb-3">
                                         <AvField
+                                            {...getFieldProps('specificSegmentsInput')} 
                                             name="specificSegmentsInput"
                                             placeholder={t('discount.specificSegmentsPlaceholder')}
                                             type="text"
@@ -45,6 +46,7 @@ const CustomerEligibility = ({ formik }) => {
                                 {values.customerEligibility === 'specificCustomers' && (
                                     <div className="mb-3">
                                         <AvField
+                                            {...getFieldProps('specificCustomersInput')} 
                                             name="specificCustomersInput"
                                             placeholder={t('discount.specificCustomersPlaceholder')}
                                             type="text"

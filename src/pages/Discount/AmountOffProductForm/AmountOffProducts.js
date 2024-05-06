@@ -7,17 +7,19 @@ import { FormikProvider } from 'formik';
 const AmountOffProducts = ({ formik, handleButtonToggle }) => {
     const { t } = useTranslation('translation');
     const [selectedButton, setSelectedButton] = useState('discountCode');
-    const { getFieldProps } = formik;
+    const { getFieldProps, setFieldValue } = formik;
     const [generatedCode, setGeneratedCode] = useState('');
 
     const handleButtonClick = (value) => {
         setSelectedButton(value);
         handleButtonToggle(value === 'automaticDiscount');
+        setFieldValue('discountMethod',value)
     };
 
     const generateRandomCode = () => {
         const randomCode = Math.random().toString(36).substring(2).toUpperCase();
         setGeneratedCode(randomCode);
+        setFieldValue('discountCode', randomCode); 
     };
 
     return (
@@ -81,6 +83,7 @@ const AmountOffProducts = ({ formik, handleButtonToggle }) => {
                                             validate={{ required: { value: true } }}
                                             id="discountCode"
                                             value={generatedCode}
+                                            disabled
                                         />
                                         <span>{t('discount.adviceDiscountCode')}</span>
                                     </div>
