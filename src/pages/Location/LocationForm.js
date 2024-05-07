@@ -23,7 +23,7 @@ const initForm = {
    name: '',
     address: '',
     appartment: '',
-    postal_code: '',
+    postalCode: '',
     city: '',
     phone: '',
     fulfillOnlineOrders: false,
@@ -53,7 +53,6 @@ const LocationForm = () => {
         initialValues: { ...formState },
         enableReinitialize: true,
         onSubmit: (values) => {
-            console.log('values',values);
             dispatch(locationActions.location({ query: values, history: navigate  }));
         }
     });

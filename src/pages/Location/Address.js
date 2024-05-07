@@ -14,7 +14,7 @@ const Address = ({ formik ,countries }) => {
 
 
     const handleChangeCountry = ({ target }) => {
-        const test =formik.getFieldProps('country.id', countries.find(d => d.id === target.value));
+        formik.setFieldValue('country.id', target.value);
     }
 return (
     <FormikProvider value={formik}>
@@ -78,7 +78,7 @@ return (
                                 <div className="mb-3">
                                     <Label className="form-label" htmlFor="address">{t('location.postalcode')}</Label>
                                     <AvField
-                                        {...getFieldProps('postal_code')}
+                                        {...getFieldProps('postalCode')}
                                         type="text"
                                         placeholder={t('location.postalcode')}
                                         errorMessage={t('message.required')}
