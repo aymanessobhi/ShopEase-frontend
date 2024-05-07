@@ -46,7 +46,6 @@ const LocationForm = () => {
 
     useEffect(() => {
         dispatch(countryActions.countryfetch());  
-        console.log('countries',countries);
     }, []);
   
     const formik = useFormik({
