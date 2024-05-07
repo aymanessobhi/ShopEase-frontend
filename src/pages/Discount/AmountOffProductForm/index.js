@@ -13,8 +13,10 @@ import CustomerEligibility from './CustomerEligibility';
 import Combinations from './Combinations';
 import ActiveDates from './ActiveDates';
 import MaximumDiscountUses from './MaximumDiscountUses';
+import { discountActions } from "../../../sagas/discountSlice";
 
 const initForm = {
+    discountType:'',
     discountMethod: 'CODE',
     discountCode: '',
     autoCode: '', 
@@ -25,10 +27,10 @@ const initForm = {
     searchCollections: '',
     searchProducts: '', 
     OncePerOrder: false, 
-    minimumPurchaseRequirement: 'none', 
+    minimumPurchaseRequirement: 'NO_MIN', 
     minimumAmountValue: '', 
     minimumQuantityValue: '',
-    customerEligibility: 'allCustomers', 
+    customerEligibility: 'ALL', 
     specificSegmentsInput: '', 
     specificCustomersInput: '',
     limitTotalUsage: false, 
@@ -47,7 +49,7 @@ const initForm = {
 const AmountOffProductForm = () => {
     const { t } = useTranslation('translation');
     const [formState, setForm] = useState(initForm);
-    let { id } = useParams();
+    let {id, type } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showAvailability, setShowAvailability] = useState(true);
@@ -75,17 +77,17 @@ const AmountOffProductForm = () => {
     }, []);
 
     const formik = useFormik({
-        initialValues: { ...formState },
+        initialValues: { ...formState, discountType:type },
         enableReinitialize: true,
         onSubmit: (values) => {
             console.log("Form values:", values);
             let payload = {
                 data: values,
                 onSuccess: () => {
-                    //navigate(DATABASE_EMPLOYE_PAGE);
+                    navigate('/base/discount');
                 }
             }
-            //dispatch(empActions.create(payload))
+            dispatch(discountActions.create(payload))
         }
     });
 

@@ -3,12 +3,15 @@ import { AvField, AvForm } from 'availity-reactstrap-validation';
 import { Button, Card, CardBody, Col, Label, Row, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
 import { FormikProvider } from 'formik';
+import { useSelector } from 'react-redux';
 const DiscountValue = ({ formik }) => {
     const { t } = useTranslation('translation');
-    const { getFieldProps, values } = formik;
-    const [discountValue, setDiscountValue] = useState('percentage');
+    const { getFieldProps} = formik;
+    const [discountValue, setDiscountValue] = useState('FIXED');
     const [modalOpen, setModalOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState('collections');
+    const [selectedOption, setSelectedOption] = useState('COLLECTIONS');
+    const { discountValues } = useSelector(state => state.data);
+    const { appliesTo } = useSelector(state => state.data);
 
 
     const handleSpecificationChange = (e) => {
@@ -26,12 +29,12 @@ const DiscountValue = ({ formik }) => {
     };
 
     const handleBrowserClick = () => {
-        if (selectedOption === 'collections') {
+        if (selectedOption === 'COLLECTIONS') {
             toggleModal();
-        }else if(selectedOption === 'products'){
+        } else if (selectedOption === 'PRODUCTS') {
             toggleModal();
         }
-        
+
     };
 
     return (
@@ -43,22 +46,15 @@ const DiscountValue = ({ formik }) => {
                             <Col md="8">
                                 <div>
                                     <Label className="form-label" htmlFor="discountValue">{t('discount.discountValue')}</Label>
-                                    <AvField
-                                        {...getFieldProps('discountValue')}
-                                        placeholder={t('discount.discountValue')}
-                                        type="select"
-                                        errorMessage={t('message.required')}
-                                        className="form-control"
-                                        validate={{ required: { value: true } }}
-                                        id="discountValue"
-                                        onChange={handleDiscountChange}
-                                    >
-                                        <option value="percentage">{t('discount.percentage')}</option>
-                                        <option value="fixedAmount">{t('discount.fixedAmount')}</option>
-                                    </AvField>
+                                    <select className="form-control" onChange={handleDiscountChange}>
+                                        <option>Sélectionner...</option>
+                                        {discountValues.map((option, index) => (
+                                            <option key={index} value={option.code}>{option.description}</option>
+                                        ))}
+                                    </select>
                                 </div>
                             </Col>
-                            {discountValue === 'percentage' && (
+                            {discountValue === 'PERCENT' && (
                                 <Col md="2">
                                     <div className="mt-4">
                                         <AvField
@@ -72,7 +68,7 @@ const DiscountValue = ({ formik }) => {
                                     </div>
                                 </Col>
                             )}
-                            {discountValue === 'fixedAmount' && (
+                            {discountValue === 'FIXED' && (
                                 <Col md="4">
                                     <div className="mt-4">
                                         <AvField
@@ -92,25 +88,18 @@ const DiscountValue = ({ formik }) => {
                             <Col md="12">
                                 <div>
                                     <Label className="form-label" htmlFor="specification">{t('discount.specification')}</Label>
-                                    <AvField
-                                        {...getFieldProps('specification')}
-                                        placeholder={t('discount.specification')}
-                                        type="select"
-                                        errorMessage={t('message.required')}
-                                        className="form-control"
-                                        validate={{ required: { value: true } }}
-                                        onChange={handleSpecificationChange}
-                                        id="specification"
-                                    >
+                                    <select className="form-control" onChange={handleSpecificationChange}>
+                                        <option>Sélectionner...</option>
                                         <option>Select</option>
-                                        <option value="collections">{t('discount.collections')}</option>
-                                        <option value="products">{t('discount.products')}</option>
-                                    </AvField>
+                                        {appliesTo.map(option => (
+                                            <option key={option.code} value={option.code}>{option.description}</option>
+                                        ))}
+                                    </select>
                                 </div>
                             </Col>
                             <Col md="10">
                                 <div className="mt-1">
-                                    {selectedOption === 'collections' && (
+                                    {selectedOption === 'COLLECTIONS' && (
                                         <AvField
                                             {...getFieldProps('searchCollections')}
                                             placeholder={t('discount.searchCollections')}
@@ -121,7 +110,7 @@ const DiscountValue = ({ formik }) => {
                                             id="searchCollections"
                                         />
                                     )}
-                                    {selectedOption === 'products' && (
+                                    {selectedOption === 'PRODUCTS' && (
                                         <AvField
                                             {...getFieldProps('searchProducts')}
                                             placeholder={t('discount.searchProducts')}
@@ -150,7 +139,7 @@ const DiscountValue = ({ formik }) => {
                                 </div>
                             </Col>
                         </Row>
-                        {discountValue === 'fixedAmount' && (
+                        {discountValue === 'FIXED' && (
                             <Row>
                                 <Col md="12">
                                     <div className="mb-3 form-check">
