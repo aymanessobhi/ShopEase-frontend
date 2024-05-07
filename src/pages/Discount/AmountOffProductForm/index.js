@@ -15,6 +15,7 @@ import ActiveDates from './ActiveDates';
 import MaximumDiscountUses from './MaximumDiscountUses';
 
 const initForm = {
+    discountType:'',
     discountMethod: 'CODE',
     discountCode: '',
     autoCode: '', 
@@ -47,7 +48,7 @@ const initForm = {
 const AmountOffProductForm = () => {
     const { t } = useTranslation('translation');
     const [formState, setForm] = useState(initForm);
-    let { id } = useParams();
+    let {id, type } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showAvailability, setShowAvailability] = useState(true);
@@ -75,7 +76,7 @@ const AmountOffProductForm = () => {
     }, []);
 
     const formik = useFormik({
-        initialValues: { ...formState },
+        initialValues: { ...formState, discountType:type },
         enableReinitialize: true,
         onSubmit: (values) => {
             console.log("Form values:", values);
