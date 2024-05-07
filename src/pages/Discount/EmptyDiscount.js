@@ -5,12 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import discount from "../../assets/images/discount.png";
 import { useSelector } from 'react-redux';
 
-const discountTypes = [
-    { value: 'amountOffProduct', label: 'Amount Off Product' },
-    { value: 'percentage', label: 'Percentage' },
-    { value: 'buyXgetY', label: 'Buy X Get Y' },
-];
-
 const EmptyDiscount = () => {
     const { t } = useTranslation('translation');
     const [isModalOpen, setIsModalOpen] = useState(false);

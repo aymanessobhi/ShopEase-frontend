@@ -5,7 +5,7 @@ import { create } from "../services/discountService";
 const discountSlice = createModule({
     name: "discount",
     initialState: {
-        discounts: [],
+        discounts: ['23'],
         isFetching: false,
         error: null
     },
