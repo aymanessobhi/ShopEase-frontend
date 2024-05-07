@@ -47,7 +47,7 @@ const PointOfSaleAccess = ({ formik }) => {
                             <Col md="12">
                                 <div className="mb-3">
                                     <AvField
-                                        {...getFieldProps('role')}
+                                        {...getFieldProps('posRole')}
                                         placeholder={t('staff.role')}
                                         type="select"
                                         errorMessage={t('message.required')}
@@ -71,7 +71,7 @@ const PointOfSaleAccess = ({ formik }) => {
                     </AvForm>
                 </CardBody>
             </Card>
-            <Card>
+            {/* <Card>
                 <CardBody>
                     <AvForm>
                         <h4 className="card-title">{t('staff.pin')}</h4>
@@ -103,21 +103,35 @@ const PointOfSaleAccess = ({ formik }) => {
                         </Row>
                     </AvForm>
                 </CardBody>
-            </Card>
+            </Card> */}
             <Card>
                 <CardBody>
                     <AvForm>
                         <Row>
-                            <Col md="10">
+                            {/* <Col md="10">
                                 <div className="mb-3">
                                     <h4 className="card-title">{t('staff.location')}</h4>
                                 </div>
+                            </Col> */}
+                                 <Col md="6">
+                                <div className="mb-3">
+                                    <Label className="form-label" htmlFor="firstname">{t('Location')}</Label>
+                                    <AvField
+                                        {...getFieldProps('location')}
+                                        placeholder={t('Location')}
+                                        type="text"
+                                        errorMessage={t('message.required')}
+                                        className="form-control"
+                                        validate={{ required: { value: true } }}
+                                        id="location"
+                                    />
+                                </div>
                             </Col>
-                            <Col md="2">
+                            {/* <Col md="2">
                                 <div className="mb-2">
                                     <Button>{t('staff.restrictAccess')}</Button>
                                 </div>
-                            </Col>
+                            </Col> */}
                         </Row>
                     </AvForm>
                 </CardBody>

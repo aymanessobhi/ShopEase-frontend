@@ -1,18 +1,22 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Card, CardBody, Container} from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import Breadcrumbs from '../../components/Common/Breadcrumb';
 import TableContainer from "../../components/Common/TableContainer";
+import { staffActions } from "../../sagas/staffSlice";
+import { useDispatch ,useSelector} from 'react-redux';
 
 const StaffPage = () => {
     const { t } = useTranslation('translation');
+    const { staffs, isFetching } = useSelector((state) => state.staff);
+
     const breadcrumbItems = [
         { title: t('database'), link: "#" },
         { title: t('staff'), link: "#" }
     ];
     const navigate = useNavigate();
-    const staffs = []
+    // const staffs = []
     const columns = useMemo(
         () => [
             {
@@ -42,6 +46,12 @@ const StaffPage = () => {
         ],
         []
       );
+
+      const dispatch = useDispatch();
+      useEffect(() => {
+            dispatch(staffActions.stafffetch());  
+            console.log('staffs',staffs);
+    }, []);
 
   return (
     <React.Fragment>

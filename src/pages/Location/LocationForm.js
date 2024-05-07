@@ -4,15 +4,23 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import Breadcrumbs from '../../components/Common/Breadcrumb';
-import { Card, CardBody, Container, Button } from "reactstrap";
+import { Card, CardBody,Button, Container} from "reactstrap";
 import LocationName from './LocationName';
 import Address from './Address';
 import FulfillmentDetails from './FulfillmentDetails';
 import PointOfSaleSection from './PointOfSaleSection';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
+import { locationActions } from "../../sagas/locationSlice";
+import { countryActions } from "../../sagas/countrySlice";
+import { useSelector} from 'react-redux';
+
+
+
+
+
 
 const initForm = {
-    locationName: '',
-    country: '',
+   name: '',
     address: '',
     appartment: '',
     postalCode: '',
@@ -20,6 +28,10 @@ const initForm = {
     phone: '',
     fulfillOnlineOrders: false,
     posEnabled: false,
+    country:{
+        id:1
+    } ,
+   
 }
 
 const LocationForm = () => {
@@ -28,32 +40,20 @@ const LocationForm = () => {
     let { id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { countries } = useSelector(state => state.country);
+
+    
 
 
     useEffect(() => {
-        if (id) {
-            let payload = {
-                id,
-                onSuccess: (data) => {
-                    setForm({ ...data });
-                }
-            }
-           // dispatch(empActions.find(payload))
-        }
+        dispatch(countryActions.countryfetch());  
     }, []);
-
+  
     const formik = useFormik({
         initialValues: { ...formState },
         enableReinitialize: true,
         onSubmit: (values) => {
-            console.log("Form Values:", values); // Log form values to console
-            let payload = {
-                data: values,
-                onSuccess: () => {
-                    //navigate(DATABASE_EMPLOYE_PAGE);
-                }
-            }
-            //dispatch(empActions.create(payload))
+            dispatch(locationActions.location({ query: values, history: navigate  }));
         }
     });
 
@@ -69,15 +69,23 @@ const LocationForm = () => {
 
     return (
         <React.Fragment>
-            <div className="page-content">
+            <div className="page-content">                
+            <AvForm className="form-horizontal" onValidSubmit={formik.handleSubmit} >
+
                 <Container fluid={true}>
+
                     <Breadcrumbs title={t('newlocation')} breadcrumbItems={breadcrumbItems} />
                     <LocationName formik={formik} /> 
-                    <Address formik={formik} /> 
+                    <Address formik={formik} countries={countries} /> 
                     <FulfillmentDetails formik={formik} /> 
                     <PointOfSaleSection formik={formik} />
-                    <Button color="primary" onClick={handleFormSubmit}>Submit</Button> 
+                    <div className="mt-4 text-center">
+                    <Button color="primary" className="w-md waves-effect waves-light" type="submit">{t('actions.save')}</Button>
+                
+
+                    </div>
                 </Container>
+                </AvForm>
             </div>
         </React.Fragment>
     )

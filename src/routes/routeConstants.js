@@ -14,6 +14,11 @@ export const DATABASE_EMPLOYE_PAGE = "/main/database/personnel/employe";
 export const DATABASE_EMPLOYE_FORM = "/main/database/personnel/employe/nouveau";
 export const DATABASE_EMPLOYE_EDIT = "/main/database/personnel/employe/edit/:id";
 
+export const DATABASE_LOCATION_PAGE = "/base/location";
+export const DATABASE_STAFF_PAGE = "/base/staff";
+
+
+
 export const DATABASE_LOCALITE_FORM = "/main/database/localite/nouveau";
 export const DATABASE_LOCALITE_PAGE = "/main/database/localite";
 export const DATABASE_LOCALITE_EDIT = "/main/database/localite/edit/:id";
