@@ -20,15 +20,17 @@ import { useSelector} from 'react-redux';
 
 
 const initForm = {
-    dto:{ name: '',
+   name: '',
     address: '',
     appartment: '',
     postal_code: '',
     city: '',
     phone: '',
     fulfillOnlineOrders: false,
-    posEnabled: false,},
-    countryId: 1
+    posEnabled: false,
+    country:{
+        id:1
+    } ,
    
 }
 
