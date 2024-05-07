@@ -13,6 +13,7 @@ import CustomerEligibility from './CustomerEligibility';
 import Combinations from './Combinations';
 import ActiveDates from './ActiveDates';
 import MaximumDiscountUses from './MaximumDiscountUses';
+import { discountActions } from "../../../sagas/discountSlice";
 
 const initForm = {
     discountType:'',
@@ -26,10 +27,10 @@ const initForm = {
     searchCollections: '',
     searchProducts: '', 
     OncePerOrder: false, 
-    minimumPurchaseRequirement: 'none', 
+    minimumPurchaseRequirement: 'NO_MIN', 
     minimumAmountValue: '', 
     minimumQuantityValue: '',
-    customerEligibility: 'allCustomers', 
+    customerEligibility: 'ALL', 
     specificSegmentsInput: '', 
     specificCustomersInput: '',
     limitTotalUsage: false, 
@@ -83,10 +84,10 @@ const AmountOffProductForm = () => {
             let payload = {
                 data: values,
                 onSuccess: () => {
-                    //navigate(DATABASE_EMPLOYE_PAGE);
+                    navigate('/base/discount');
                 }
             }
-            //dispatch(empActions.create(payload))
+            dispatch(discountActions.create(payload))
         }
     });
 

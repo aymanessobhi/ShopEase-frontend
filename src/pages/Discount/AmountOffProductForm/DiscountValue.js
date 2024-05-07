@@ -6,7 +6,7 @@ import { FormikProvider } from 'formik';
 import { useSelector } from 'react-redux';
 const DiscountValue = ({ formik }) => {
     const { t } = useTranslation('translation');
-    const { getFieldProps, values } = formik;
+    const { getFieldProps} = formik;
     const [discountValue, setDiscountValue] = useState('FIXED');
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState('COLLECTIONS');
