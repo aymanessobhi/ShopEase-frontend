@@ -1,6 +1,6 @@
 import {  call,put } from "redux-saga/effects";
 import { createModule } from "saga-slice";
-import { DATABASE_LOCATION_PAGE } from "../routes/routeConstants";
+import { DATABASE_STAFF_PAGE } from "../routes/routeConstants";
 import { staff,staffFetch } from "../services/staffService";
 
 const staffSlice = createModule({
@@ -14,10 +14,8 @@ const staffSlice = createModule({
     staff: (state) => {
       state.loading = true;
     },
-    stafffetch: (state, payload) => {
+    stafffetch: (state) => {
       state.loading = true;
-      state.staffs = payload;
-
     },
     staffSuccess: (state, payload) => {
       state.staffs = payload.body;
@@ -36,9 +34,8 @@ const staffSlice = createModule({
     *[A.staff]({ payload: { query, history }}) {
       try {
         const { data } = yield staff(query);
-        yield put(A.staffSuccess(data));
         yield put(A.finishFetching());
-        history(DATABASE_LOCATION_PAGE);
+        history(DATABASE_STAFF_PAGE);
       } catch (e) {
         console.log(e);
         yield put(A.finishFetching());

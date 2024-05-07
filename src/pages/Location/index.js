@@ -12,7 +12,7 @@ import { useDispatch ,useSelector} from 'react-redux';
 const LocationPage = () => {
     const [fetchedData, setFetchedData] = useState(null);
     const { t } = useTranslation('translation');
-    const { locations, isFetching } = useSelector((state) => state.location);
+    const { locations, loading } = useSelector((state) => state.location);
 
 
 
@@ -73,7 +73,15 @@ const LocationPage = () => {
             dispatch(locationActions.locationfetch());  
     }, []);
     return (
+    
         <React.Fragment>
+            {loading ? <div id="preloader">
+                    <div id="status">
+                        <div className="spinner">
+                            <i className="ri-loader-line spin-icon"></i>
+                        </div>
+                    </div>
+                </div> :
             <div className="page-content">
                 <Container fluid>
                     <Breadcrumbs title={t('locations')} breadcrumbItems={breadcrumbItems} />
@@ -81,8 +89,8 @@ const LocationPage = () => {
                     <Card>
                         <CardBody>
                         <TableContainer
-                                columns={columns || []}
-                                data={locations || []}
+                                columns={columns}
+                                data={locations ?? []}
                                 isPagination={false}
                                 isAddLocationList={true}
                                 customPageSizeOptions={true}
@@ -94,8 +102,9 @@ const LocationPage = () => {
                         </CardBody>
                     </Card>
                 </Container>
-            </div>
+            </div>}
         </React.Fragment>
+      
     )
 }
 

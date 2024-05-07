@@ -14,10 +14,8 @@ const locationSlice = createModule({
     location: (state) => {
       state.loading = true;
     },
-    locationfetch: (state, payload) => {
+    locationfetch: (state) => {
       state.loading = true;
-      state.locations = payload;
-
     },
     locationSuccess: (state, payload) => {
       state.locations = payload.body;
@@ -34,10 +32,8 @@ const locationSlice = createModule({
   sagas: (A) => ({
     
     *[A.location]({ payload: { query, history }}) {
-      console.log('slioce',query);
       try {
         const { data } = yield location(query);
-        yield put(A.locationSuccess(data));
         yield put(A.finishFetching());
         history(DATABASE_LOCATION_PAGE);
       } catch (e) {
@@ -55,10 +51,6 @@ const locationSlice = createModule({
           yield call(payload.onSuccess, data);
         }
         console.log("Fetched location:", data);
-
-
-
-
       } catch (e) {
         console.log(e);
         yield put(A.finishFetching());
