@@ -13,7 +13,6 @@ const Availability = ({ formik }) => {
         <FormikProvider value={formik}>
             <Card>
                 <CardBody>
-                    <AvForm>
                         <span style={{ fontSize: '15px', fontWeight: 'bold', color: '#333' }}>{t('discount.availability')}</span>
                         <Row>
                         <span className="mb-4" style={{ fontSize: '15px', fontWeight: 'normal', color: '#333' }}>{t('discount.avaiDescription')}</span>
@@ -24,7 +23,6 @@ const Availability = ({ formik }) => {
                                 </div>
                             </Col>
                         </Row>
-                    </AvForm>
                 </CardBody>
             </Card>
         </FormikProvider>

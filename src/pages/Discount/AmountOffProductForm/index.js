@@ -14,23 +14,24 @@ import Combinations from './Combinations';
 import ActiveDates from './ActiveDates';
 import MaximumDiscountUses from './MaximumDiscountUses';
 import { discountActions } from "../../../sagas/discountSlice";
+import { AvForm } from 'availity-reactstrap-validation';
 
 const initForm = {
     discountType:'',
-    discountMethod: 'CODE',
+    discountMethod: null,
     discountCode: '',
     autoCode: '', 
-    discountValue: '', 
+    discountValue: null, 
     percentage: '', 
     amount: '', 
-    specification: '', 
+    specification: null, 
     searchCollections: '',
     searchProducts: '', 
     OncePerOrder: false, 
-    minimumPurchaseRequirement: 'NO_MIN', 
+    minimumPurchaseRequirement: null, 
     minimumAmountValue: '', 
     minimumQuantityValue: '',
-    customerEligibility: 'ALL', 
+    customerEligibility: null, 
     specificSegmentsInput: '', 
     specificCustomersInput: '',
     limitTotalUsage: false, 
@@ -90,6 +91,7 @@ const AmountOffProductForm = () => {
             dispatch(discountActions.create(payload))
         }
     });
+    const { errors, handleSubmit, isSubmitting } = formik;
 
     const breadcrumbItems = [
         { title: t('database'), link: "#" },
@@ -97,25 +99,24 @@ const AmountOffProductForm = () => {
         { title: t('New Discount'), link: "#" }
     ];
 
-    const handleSave = () => {
-        formik.handleSubmit();
-        // You can also include additional logic here if needed
-    };
-
     return (
         <React.Fragment>
             <div className="page-content">
                 <Container fluid={true}>
-                    <Breadcrumbs title={t('create discount')} breadcrumbItems={breadcrumbItems} />
-                    <AmountOffProducts formik={formik} handleButtonToggle={handleButtonToggle}/> 
-                    <DiscountValue formik={formik} /> 
-                    {showAvailability && <Availability formik={formik} />}
-                    <Purchase formik={formik} automaticDiscountClicked={!showNoMinimumRequirements} />
-                    {showCustomerEligibility && <CustomerEligibility formik={formik} />}
-                    {showMaximumDiscountUses && <MaximumDiscountUses formik={formik} />}
-                    <Combinations formik={formik}/> 
-                    <ActiveDates formik={formik}/> 
-                    <Button color="primary" onClick={handleSave}>{t('action.enregistrer')}</Button>
+                    <AvForm  className="needs-validation" onValidSubmit={handleSubmit} >
+                        <Breadcrumbs title={t('create discount')} breadcrumbItems={breadcrumbItems} />
+                        <AmountOffProducts formik={formik} handleButtonToggle={handleButtonToggle}/> 
+                        <DiscountValue formik={formik} /> 
+                        {showAvailability && <Availability formik={formik} />}
+                        <Purchase formik={formik} automaticDiscountClicked={!showNoMinimumRequirements} />
+                        {showCustomerEligibility && <CustomerEligibility formik={formik} />}
+                        {showMaximumDiscountUses && <MaximumDiscountUses formik={formik} />}
+                        <Combinations formik={formik}/> 
+                        <ActiveDates formik={formik}/> 
+                        <Button  variant='contained' type='submit' color='success'>
+                            {t("actions.save")}
+                        </Button>
+                    </AvForm>
                 </Container>
             </div>
         </React.Fragment>

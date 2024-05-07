@@ -39,7 +39,6 @@ const Combinations = ({ formik, automaticDiscountClicked }) => {
                             {t('discount.largeDiscountWarning')}
                         </div>
                     )}
-                    <AvForm>
                         <span style={{ fontSize: '15px', fontWeight: 'bold', color: '#333' }}>{t('discount.combinesWith')}</span>
                         <div style={{ marginTop: '10px' }}>
                             <span style={{ fontSize: '15px', fontWeight: 'normal', color: '#333' }}>{t('discount.combinesWithDescription')}</span>
@@ -86,7 +85,6 @@ const Combinations = ({ formik, automaticDiscountClicked }) => {
                                 )}
                             </div>
                         </div>
-                    </AvForm>
                 </CardBody>
             </Card>
         </FormikProvider>

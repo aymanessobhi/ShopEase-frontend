@@ -41,7 +41,6 @@ const DiscountValue = ({ formik }) => {
         <FormikProvider value={formik}>
             <Card>
                 <CardBody>
-                    <AvForm>
                         <Row>
                             <Col md="8">
                                 <div>
@@ -90,7 +89,6 @@ const DiscountValue = ({ formik }) => {
                                     <Label className="form-label" htmlFor="specification">{t('discount.specification')}</Label>
                                     <select className="form-control" onChange={handleSpecificationChange}>
                                         <option>Sélectionner...</option>
-                                        <option>Select</option>
                                         {appliesTo.map(option => (
                                             <option key={option.code} value={option.code}>{option.description}</option>
                                         ))}
@@ -150,7 +148,6 @@ const DiscountValue = ({ formik }) => {
                                 </Col>
                             </Row>
                         )}
-                    </AvForm>
                 </CardBody>
             </Card>
             <Modal isOpen={modalOpen} toggle={toggleModal}>

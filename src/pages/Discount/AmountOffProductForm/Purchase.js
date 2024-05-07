@@ -15,7 +15,6 @@ const Purchase = ({ formik, automaticDiscountClicked }) => {
         <FormikProvider value={formik}>
             <Card>
                 <CardBody>
-                    <AvForm>
                         <span style={{ fontSize: '15px', fontWeight: 'bold', color: '#333' }}>{t('discount.minimumPurchaseRequirements')}</span>
                         <div style={{ marginTop: '10px' }}>
                             <span style={{ fontSize: '15px', fontWeight: 'normal', color: '#333' }}>{t('discount.minimumPurchaseDescription')}</span>
@@ -63,7 +62,6 @@ const Purchase = ({ formik, automaticDiscountClicked }) => {
                                 </div>
                             ))}
                         </div>
-                    </AvForm>
                 </CardBody>
             </Card>
         </FormikProvider>

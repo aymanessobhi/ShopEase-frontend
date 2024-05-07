@@ -17,7 +17,6 @@ const MaximumDiscountUses = ({ formik }) => {
         <FormikProvider value={formik}>
             <Card>
                 <CardBody>
-                    <AvForm>
                         <span style={{ fontSize: '15px', fontWeight: 'bold', color: '#333' }}>{t('discount.maximumDiscountUses')}</span>
                         <Row>
                             <Col md="12">
@@ -56,7 +55,6 @@ const MaximumDiscountUses = ({ formik }) => {
                                 </div>
                             </Col>
                         </Row>
-                    </AvForm>
                 </CardBody>
             </Card>
         </FormikProvider>

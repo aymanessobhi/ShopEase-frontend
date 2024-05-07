@@ -13,11 +13,24 @@ const ActiveDates = ({ formik }) => {
         setSetEndDate(!setEndDate);
     };
 
+    const validateEndDate = (value, cb) => {
+        if (setEndDate) {
+            const startDate = new Date(values.startDate);
+            const endDate = new Date(value);
+            if (endDate < startDate) {
+                cb(false);
+            } else {
+                cb(true);
+            }
+        } else {
+            cb(true);
+        }
+    };
+
     return (
         <FormikProvider value={formik}>
             <Card>
                 <CardBody>
-                    <AvForm>
                         <span style={{ fontSize: '15px', fontWeight: 'bold', color: '#333' }}>{t('discount.activeDates')}</span>
                         <Row>
                             <Col md="6">
@@ -69,6 +82,7 @@ const ActiveDates = ({ formik }) => {
                                                 {...getFieldProps('endDate')}
                                                 id="endDate"
                                                 label={t('discount.endDate')}
+                                                validate={{ custom: validateEndDate }}
                                             />
                                         </div>
                                         <div className="mb-3">
@@ -85,7 +99,6 @@ const ActiveDates = ({ formik }) => {
                                 )}
                             </Col>
                         </Row>
-                    </AvForm>
                 </CardBody>
             </Card>
         </FormikProvider>

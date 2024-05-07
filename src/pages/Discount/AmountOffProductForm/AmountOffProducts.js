@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AvField, AvForm } from 'availity-reactstrap-validation';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { Button, ButtonGroup, Card, CardBody, Col, Label, Row } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
 import { FormikProvider } from 'formik';
@@ -8,32 +8,31 @@ import { useSelector } from 'react-redux';
 const AmountOffProducts = ({ formik, handleButtonToggle }) => {
     const { t } = useTranslation('translation');
     const [selectedButton, setSelectedButton] = useState('AUTOMATIC');
-    const { getFieldProps, setFieldValue } = formik;
+    const { setFieldValue, handleSubmit } = formik;
     const [generatedCode, setGeneratedCode] = useState('');
     const { discountMethods } = useSelector(state => state.data);
 
     const handleButtonClick = (value) => {
         setSelectedButton(value);
         handleButtonToggle(value === 'AUTOMATIC');
-        setFieldValue('discountMethod',value)
+        setFieldValue('discountMethod', value);
     };
 
     const generateRandomCode = () => {
         const randomCode = Math.random().toString(36).substring(2).toUpperCase();
         setGeneratedCode(randomCode);
-        setFieldValue('discountCode', randomCode); 
+        setFieldValue('discountCode', randomCode);
     };
 
     return (
         <FormikProvider value={formik}>
             <Card>
                 <CardBody>
-                    <AvForm>
                         <h4 className="card-title">{t('discount.amountOffProducts')}</h4>
                         <span style={{ fontSize: '16px', fontWeight: 'bold', color: '#333' }}>{t('discount.method')}</span>
                         <Row>
                             <Col>
-                            <ButtonGroup className="mt-3" style={{ boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
+                                <ButtonGroup className="mt-3" style={{ boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' }}>
                                     {discountMethods.map(method => (
                                         <Button
                                             key={method.code}
@@ -68,7 +67,7 @@ const AmountOffProducts = ({ formik, handleButtonToggle }) => {
                                             </Col>
                                         </Row>
                                         <AvField
-                                            {...getFieldProps('discountCode')}
+                                            {...formik.getFieldProps('discountCode')}
                                             placeholder={t('discount.discountCode')}
                                             type="text"
                                             errorMessage={t('message.required')}
@@ -93,7 +92,7 @@ const AmountOffProducts = ({ formik, handleButtonToggle }) => {
                                             </Col>
                                         </Row>
                                         <AvField
-                                            {...getFieldProps('autoCode')}
+                                            {...formik.getFieldProps('autoCode')}
                                             placeholder={t('discount.autoCode')}
                                             type="text"
                                             errorMessage={t('message.required')}
@@ -106,7 +105,6 @@ const AmountOffProducts = ({ formik, handleButtonToggle }) => {
                                 </Col>
                             </Row>
                         )}
-                    </AvForm>
                 </CardBody>
             </Card>
         </FormikProvider>

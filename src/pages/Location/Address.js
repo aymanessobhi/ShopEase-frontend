@@ -8,11 +8,10 @@ import { countryActions } from "../../sagas/countrySlice";
 
 
 
-const Address = ({ formik, countries }) => {
+const Address = ({ formik }) => {
     const { t } = useTranslation('translation');
     const { getFieldProps } = formik;
     const { countries } = useSelector(state => state.data);
-
 
     const handleChangeCountry = ({ target }) => {
         formik.setFieldValue('country.id', target.value);

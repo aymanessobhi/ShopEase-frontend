@@ -16,7 +16,6 @@ const CustomerEligibility = ({ formik }) => {
         <FormikProvider value={formik}>
             <Card>
                 <CardBody>
-                    <AvForm>
                         <span style={{ fontSize: '15px', fontWeight: 'bold', color: '#333' }}>{t('discount.customerEligibility')}</span>
                         <Row>
                             <span className="mb-4" style={{ fontSize: '15px', fontWeight: 'normal', color: '#333' }}>{t('discount.customerEligibilityDescription')}</span>
@@ -29,6 +28,7 @@ const CustomerEligibility = ({ formik }) => {
                                             value={eligibility.code}
                                             className="form-check-input"
                                             id={`customerEligibility_${index}`}
+                                            checked={values.customerEligibility === eligibility.code} 
                                         />
                                         <label className="form-check-label" htmlFor={`customerEligibility_${index}`}>{t(eligibility.description)}</label>
                                         {values.customerEligibility === eligibility.code && eligibility.code === 'SPECIFIC_SEGMENTS' && (
@@ -63,7 +63,6 @@ const CustomerEligibility = ({ formik }) => {
                                 ))}
                             </Col>
                         </Row>
-                    </AvForm>
                 </CardBody>
             </Card>
         </FormikProvider>

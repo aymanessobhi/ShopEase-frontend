@@ -12,12 +12,6 @@ import PointOfSaleSection from './PointOfSaleSection';
 import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { locationActions } from "../../sagas/locationSlice";
 import { countryActions } from "../../sagas/countrySlice";
-import { useSelector} from 'react-redux';
-
-
-
-
-
 
 const initForm = {
    name: '',
