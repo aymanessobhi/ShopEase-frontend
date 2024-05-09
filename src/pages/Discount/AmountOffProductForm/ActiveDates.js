@@ -13,19 +13,26 @@ const ActiveDates = ({ formik }) => {
         setSetEndDate(!setEndDate);
     };
 
-    const validateEndDate = (value, cb) => {
+    const validateEndDate = (value, setEndDate) => {
+        console.log("startDateValue:", values.startDate);
+        console.log("value:", value);
+        console.log("setEndDate:", setEndDate);
+    
         if (setEndDate) {
             const startDate = new Date(values.startDate);
             const endDate = new Date(value);
-            if (endDate < startDate) {
-                cb(false);
-            } else {
-                cb(true);
-            }
+            console.log("startDate:", startDate);
+            console.log("endDate:", endDate);
+            
+            const isValid = endDate >= startDate;
+            console.log("isValid:", isValid);
+            
+            return isValid;
         } else {
-            cb(true);
+            return true; 
         }
     };
+    
 
     return (
         <FormikProvider value={formik}>

@@ -1,11 +1,11 @@
 import { createModule } from "saga-slice";
 import { call, put } from "redux-saga/effects";
-import { create } from "../services/discountService";
+import { create, list } from "../services/discountService";
 
 const discountSlice = createModule({
     name: "discount",
     initialState: {
-        discounts: ['23'],
+        discounts: [],
         isFetching: false,
         error: null
     },
@@ -38,7 +38,19 @@ const discountSlice = createModule({
                 yield put(A.finishFetching());
                 yield put(A.fetchError());
             }
+        },
+        *[A.list]() {
+            try {
+                const { data } = yield list();
+                yield put(A.finishFetching());
+                yield put(A.fetchedData(data));
+            } catch (e) {
+                console.log(e);
+                yield put(A.finishFetching());
+                yield put(A.fetchError());
+            }
         }
+
     })
 })
 

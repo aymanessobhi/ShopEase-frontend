@@ -73,12 +73,14 @@ const TableContainer = ({
   handleFournisseurClick,
   handleProductClick,
   handleLocationClick,
+  handleDiscountClick,
   handleStaffClick,
   isAddCustList,
   isAddFournList,
   isAddProdList,
   isAddStaffList,
   isAddLocationList,
+  isAddDiscountList,
   customPageSize,
   className,
   customPageSizeOptions,
@@ -204,6 +206,21 @@ const TableContainer = ({
               >
                 <i className="mdi mdi-plus me-1" />
                 {t('newcustom')}
+              </Button>
+            </div>
+          </Col>
+        )}
+        {isAddDiscountList && (
+          <Col sm="10">
+            <div className="text-sm-end">
+              <Button
+                type="button"
+                color="success"
+                className="btn-rounded mb-2 me-2"
+                onClick={handleDiscountClick}
+              >
+                <i className="mdi mdi-plus me-1" />
+                {t('new Discount')}
               </Button>
             </div>
           </Col>

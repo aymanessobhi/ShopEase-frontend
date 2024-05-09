@@ -5,18 +5,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import discount from "../../assets/images/discount.png";
 import { useSelector } from 'react-redux';
 
-const EmptyDiscount = () => {
+const EmptyDiscount = ({ discTypes }) => {
     const { t } = useTranslation('translation');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
-    const { discTypes } = useSelector(state => state.data);
 
     const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-    const handleDiscountTypeChange = (type) => {
-        console.log(type)
+    const handleDiscountTypeChange = (typeCode) => {
+        navigate(`/base/discount/new/${typeCode}`);
         toggleModal();
-        navigate(`/base/discount/new/${type}`);
     };
 
     return (
