@@ -4,7 +4,7 @@ import config from "../helpers/config";
 
 export const staff = (query) => {
     const retrievedToken =  localStorage.getItem('authUser');
-    const parse =  JSON.parse(retrievedToken);;
+    const parse =  JSON.parse(retrievedToken);
     let headers = {
         "Content-type": "application/json",
         'Authorization': `Bearer ${parse.accessToken}`,
@@ -14,6 +14,19 @@ export const staff = (query) => {
         headers: headers,
     });
 };
+export const deleteSt = (id) => {
+    const retrievedToken =  localStorage.getItem('authUser');
+    const parse =  JSON.parse(retrievedToken);
+    let headers = {
+        "Content-type": "application/json",
+        'Authorization': `Bearer ${parse.accessToken}`,
+
+    };
+    return instance.delete(`${config.baseURL}/staff/deleteSt/${id}`,{
+        headers: headers,
+    });
+};
+
 
 export const staffFetch = () => {
     const retrievedToken =  localStorage.getItem('authUser');

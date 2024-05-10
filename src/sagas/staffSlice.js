@@ -1,7 +1,7 @@
 import {  call,put } from "redux-saga/effects";
 import { createModule } from "saga-slice";
 import { DATABASE_STAFF_PAGE } from "../routes/routeConstants";
-import { staff,staffFetch } from "../services/staffService";
+import { staff,staffFetch,deleteSt } from "../services/staffService";
 
 const staffSlice = createModule({
   name: "staff",
@@ -17,6 +17,10 @@ const staffSlice = createModule({
     stafffetch: (state) => {
       state.loading = true;
     },
+    delete: (state) => {
+      state.loading = true;
+  },
+
     staffSuccess: (state, payload) => {
       state.staffs = payload.body;
     },
@@ -42,6 +46,18 @@ const staffSlice = createModule({
         yield put(A.fetchError());
       }
     },
+    *[A.delete]({payload}) {
+      try {
+          yield deleteSt(payload.id);
+          yield put(A.finishFetching());
+          yield call(payload.onSuccess);
+      } catch (e) {
+          console.log(e);
+          yield put(A.finishFetching());
+          yield put(A.fetchError());
+      }
+  },
+
     *[A.stafffetch]({ payload }) {
       try {
         const { data } = yield staffFetch();
@@ -50,11 +66,6 @@ const staffSlice = createModule({
         if (payload && payload.onSuccess) {
           yield call(payload.onSuccess, data);
         }
-        console.log("Fetched Staff:", data);
-
-
-
-
       } catch (e) {
         console.log(e);
         yield put(A.finishFetching());

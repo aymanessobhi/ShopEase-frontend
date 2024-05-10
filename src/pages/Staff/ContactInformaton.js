@@ -20,7 +20,7 @@ const ContactInformaton = ({ formik }) => {
                                 <div className="mb-3">
                                     <Label className="form-label" htmlFor="firstname">{t('staff.firstname')}</Label>
                                     <AvField
-                                        {...getFieldProps('name')}
+                                        {...getFieldProps('firstName')}
                                         placeholder={t('staff.firstname')}
                                         type="text"
                                         errorMessage={t('message.required')}
@@ -32,23 +32,9 @@ const ContactInformaton = ({ formik }) => {
                             </Col>
                             <Col md="6">
                                 <div className="mb-3">
-                                    <Label className="form-label" htmlFor="firstname">{t('access')}</Label>
-                                    <AvField
-                                        {...getFieldProps('access')}
-                                        placeholder={t('access')}
-                                        type="text"
-                                        errorMessage={t('message.required')}
-                                        className="form-control"
-                                        validate={{ required: { value: true } }}
-                                        id="access"
-                                    />
-                                </div>
-                            </Col>
-                            {/* <Col md="6">
-                                <div className="mb-3">
                                     <Label className="form-label" htmlFor="lastname">{t('staff.lastname')}</Label>
                                     <AvField
-                                        {...getFieldProps('lastname')}
+                                        {...getFieldProps('lastName')}
                                         placeholder={t('staff.lastname')}
                                         type="text"
                                         errorMessage={t('message.required')}
@@ -57,9 +43,9 @@ const ContactInformaton = ({ formik }) => {
                                         id="name"
                                     />
                                 </div>
-                            </Col> */}
+                            </Col>
                         </Row>
-                        {/* <Row>
+                        <Row>
                             <Col md="6">
                                 <div className="mb-3">
                                     <Label className="form-label" htmlFor="email">{t('staff.email')}</Label>
@@ -88,7 +74,7 @@ const ContactInformaton = ({ formik }) => {
                                     />
                                 </div>
                             </Col>
-                        </Row> */}
+                        </Row>
                     </AvForm>
                 </CardBody>
             </Card>
