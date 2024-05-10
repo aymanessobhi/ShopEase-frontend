@@ -26,6 +26,7 @@ const Purchase = ({ formik, automaticDiscountClicked }) => {
                                         value={item.code}
                                         className="form-check-input"
                                         id={`minimumPurchaseRequirement_${index}`}
+                                        checked={values.minimumPurchaseRequirement === item.code}
                                         disabled={item.code === 'NO_MIN' && !automaticDiscountClicked}
                                     />
                                     <label className="form-check-label" htmlFor={`minimumPurchaseRequirement_${index}`}>{item.description}</label>

@@ -6,7 +6,7 @@ import { FormikProvider } from 'formik';
 
 const Combinations = ({ formik, automaticDiscountClicked }) => {
     const { t } = useTranslation('translation');
-    const { getFieldProps, setFieldValue } = formik;
+    const { getFieldProps, setFieldValue, values } = formik;
     const [showProductDiscountsInfo, setShowProductDiscountsInfo] = useState(false);
     const [showOrderDiscountsInfo, setShowOrderDiscountsInfo] = useState(false);
     const [showShippingDiscountsInfo, setShowShippingDiscountsInfo] = useState(false);
@@ -49,6 +49,7 @@ const Combinations = ({ formik, automaticDiscountClicked }) => {
                                     {...getFieldProps('combineWithProductDiscounts')}
                                     value="combineWithProductDiscounts"
                                     id="combineWithProductDiscounts"
+                                    checked = {values.combineWithProductDiscounts}
                                     onClick={handleProductDiscountsChange}
                                 />
                                 <label className="form-check-label" htmlFor="combineWithProductDiscounts">{t('discount.productDiscounts')}</label>
@@ -63,6 +64,7 @@ const Combinations = ({ formik, automaticDiscountClicked }) => {
                                     {...getFieldProps('combineWithOrderDiscounts')}
                                     value="combineWithOrderDiscounts"
                                     id="combineWithOrderDiscounts"
+                                    checked = {values.combineWithOrderDiscounts}
                                     onClick={handleOrderDiscountsChange}
                                 />
                                 <label className="form-check-label" htmlFor="combineWithOrderDiscounts">{t('discount.orderDiscounts')}</label>
@@ -77,6 +79,7 @@ const Combinations = ({ formik, automaticDiscountClicked }) => {
                                     {...getFieldProps('combineWithShippingDiscounts')}
                                     value="combineWithShippingDiscounts"
                                     id="combineWithShippingDiscounts"
+                                    checked = {values.combineWithShippingDiscounts}
                                     onClick={handleShippingDiscountsChange}
                                 />
                                 <label className="form-check-label" htmlFor="combineWithShippingDiscounts">{t('discount.shippingDiscounts')}</label>

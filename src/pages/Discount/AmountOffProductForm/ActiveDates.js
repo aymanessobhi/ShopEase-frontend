@@ -13,8 +13,8 @@ const ActiveDates = ({ formik }) => {
         setSetEndDate(!setEndDate);
     };
 
-    const validateEndDate = (value, setEndDate) => {
-        console.log("startDateValue:", values.startDate);
+    const validateEndDate = (value, setEndDate, startDateValue) => {
+        console.log("startDateValue:", startDateValue);
         console.log("value:", value);
         console.log("setEndDate:", setEndDate);
     

@@ -27,11 +27,12 @@ const MaximumDiscountUses = ({ formik }) => {
                                         {...getFieldProps('limitTotalUsage')}
                                         className="form-check-input"
                                         id="limitTotalUsage"
+                                        checked={showTotalUsageLimit || values.totalUsageLimit}
                                         onChange={handleTotalUsageLimitChange}
                                     />
                                     <label className="form-check-label" htmlFor="limitTotalUsage">{t('discount.limitTotalUsage')}</label>
                                 </div>
-                                {showTotalUsageLimit && (
+                                { showTotalUsageLimit  && (
                                     <div className="mb-3">
                                         <AvField
                                             name="totalUsageLimit"
@@ -50,6 +51,7 @@ const MaximumDiscountUses = ({ formik }) => {
                                         {...getFieldProps('limitPerCustomer')}
                                         className="form-check-input"
                                         id="limitPerCustomer"
+                                        checked = {values.limitPerCustomer}
                                     />
                                     <label className="form-check-label" htmlFor="limitPerCustomer">{t('discount.limitToPerCustomer')}</label>
                                 </div>

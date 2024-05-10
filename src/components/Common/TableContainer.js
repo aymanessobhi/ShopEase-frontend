@@ -220,7 +220,7 @@ const TableContainer = ({
                 onClick={handleDiscountClick}
               >
                 <i className="mdi mdi-plus me-1" />
-                {t('new Discount')}
+                {t('actions.new')}
               </Button>
             </div>
           </Col>

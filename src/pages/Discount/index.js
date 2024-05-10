@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from "react-i18next";
 import { Button, Card, Container, CardBody, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Breadcrumbs from '../../components/Common/Breadcrumb';
 import TableContainer from "../../components/Common/TableContainer";
 import EmptyDiscount from './EmptyDiscount';
@@ -13,6 +13,7 @@ const DiscountPage = () => {
     const { isFetching, discounts } = useSelector(state => state.discount);
     const { discTypes } = useSelector(state => state.data);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [record, setRecord] = useState({ open: false, data: null });
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -33,15 +34,36 @@ const DiscountPage = () => {
         () => [
             {
                 Header: t('discount.title'),
-                accessor: discounts.some(discount => discount.discountCode) ? "discountCode" : "autoCode",
+                accessor: "", 
                 disableFilters: true,
                 filterable: false,
+                Cell: ({ row }) => {
+                    const autoCode = row.original.autoCode;
+                    const discountCode = row.original.discountCode;
+            
+                    return (
+                        <span>
+                            {autoCode !== '' ? autoCode : discountCode}
+                        </span>
+                    );
+                }
             },
             {
                 Header: t('discount.status'),
                 accessor: "status",
                 disableFilters: true,
                 filterable: false,
+                Cell: ({ row }) => {
+                    const endDate = new Date(row.original.endDate);
+                    const currentDate = new Date();
+                    const isExpired = endDate < currentDate;
+                    
+                    return (
+                        <span className={`badge ${isExpired ? 'bg-danger' : 'bg-success'}`}>
+                            {isExpired ? t('discount.expired') : t('discount.active')}
+                        </span>
+                    );
+                }
             },
             {
                 Header: t('discount.method'),
@@ -54,16 +76,64 @@ const DiscountPage = () => {
                 accessor: "discountType",
                 disableFilters: true,
                 filterable: false,
+                Cell: ({ row }) => {
+                    const discountType = row.original.discountType;
+            
+                    let content;
+                    switch (discountType) {
+                        case "OFF_PRODUCT":
+                            content = "Amount off Product";
+                            break;
+                        case "BUYGET":
+                            content = "Buy X get Y";
+                            break;
+                        case "AMOUNT_OFF":
+                            content = "Amount off order";
+                            break;
+                        case "FREE_SHIP":
+                            content = "Free shipping";
+                            break;
+                        default:
+                            content = "";
+                    }
+            
+                    return <span>{content}</span>;
+                }
             },
-            // {
-            //     Header: t('discount.combinations'),
-            //     accessor: "combinations",
-            //     disableFilters: true,
-            //     filterable: false,
-            // }
+            {
+                Header: t('action'),
+                accessor: (cellProps) => {
+                    return (
+                        <React.Fragment>
+                            <Link to={`/base/discount/edit/${cellProps.discountType}/:id`.replace(":id", cellProps.id)}  className="me-3 text-primary"><i className="mdi mdi-pencil font-size-18"></i></Link>
+                            <Link onClick={() => handleDelete(cellProps)} className="text-danger"><i className="mdi mdi-trash-can font-size-18"></i></Link>
+                        </React.Fragment>
+                    )
+                },
+                disableFilters: true,
+                filterable: false,
+            },
         ],
         [t]
     );
+
+    const handleDelete = (cellProps) => {
+        setRecord({ open: true, data: cellProps })
+    }
+
+    const confirmDelete = () => {
+        setRecord({ ...record, open: false })
+        let payload = {
+            id: record.data.id,
+            onSuccess: () => {
+                dispatch(discountActions.list());
+            },
+            onError: (error) => {
+                console.log(error)
+            },
+        };
+        dispatch(discountActions.delete(payload));
+    }
 
     const handleDiscountClick = (typeCode) => {
         navigate(`/base/discount/new/${typeCode}`);
@@ -71,6 +141,7 @@ const DiscountPage = () => {
     };
 
     return (
+        <React.Fragment>
         <div className="page-content">
             <Container fluid>
                 <Breadcrumbs title={t('discounts')} breadcrumbItems={breadcrumbItems} />
@@ -113,7 +184,26 @@ const DiscountPage = () => {
                     </CardBody>
                 </Card>
             </Container>
-        </div>
+            <Modal
+                isOpen={record.open}
+                toggle={() => setRecord({ ...record, open: false })}
+                backdrop="static"
+            >
+                <ModalHeader toggle={() => setRecord({ ...record, open: false })}>
+                    {t('text.confirmation')}
+                </ModalHeader>
+                <ModalBody>
+                    <p>
+                        {t('text.msgDelete')}
+                    </p>
+                    <ModalFooter>
+                        <Button type="button" color="light" onClick={() => setRecord({ ...record, open: false })}>{t('actions.close')}</Button>
+                        <Button type="button" color="primary" onClick={confirmDelete}>{t('actions.confirm')}</Button>
+                    </ModalFooter>
+                </ModalBody>
+            </Modal>
+            </div>
+        </React.Fragment>
     );
 };
 

@@ -18,7 +18,7 @@ import { AvForm } from 'availity-reactstrap-validation';
 
 const initForm = {
     discountType:'',
-    discountMethod: null,
+    discountMethod: 'AUTOMATIC',
     discountCode: '',
     autoCode: '', 
     discountValue: null, 
@@ -58,24 +58,13 @@ const AmountOffProductForm = () => {
     const [showNoMinimumRequirements, setShowNoMinimumRequirements] = useState(true);
     const [showMaximumDiscountUses, setShowMaximumDiscountUses] = useState(true);
 
-    const handleButtonToggle = (show) => {
-        setShowAvailability(show);
-        setShowCustomerEligibility(!show);
-        setShowNoMinimumRequirements(show);
-        setShowMaximumDiscountUses(!show);
-    };
+    const breadcrumbItems = [
+        { title: t('database'), link: "#" },
+        { title: t('discounts'), link: "#" },
+        { title: t('New Discount'), link: "#" }
+    ];
 
-    useEffect(() => {
-        if (id) {
-            let payload = {
-                id,
-                onSuccess: (data) => {
-                    setForm({ ...data });
-                }
-            }
-           // dispatch(empActions.find(payload))
-        }
-    }, []);
+    const isEditing = !!id;
 
     const formik = useFormik({
         initialValues: { ...formState, discountType:type },
@@ -91,21 +80,35 @@ const AmountOffProductForm = () => {
             dispatch(discountActions.create(payload))
         }
     });
-    const { errors, handleSubmit, isSubmitting } = formik;
 
-    const breadcrumbItems = [
-        { title: t('database'), link: "#" },
-        { title: t('discounts'), link: "#" },
-        { title: t('New Discount'), link: "#" }
-    ];
+    useEffect(() => {
+        if (id) {
+            let payload = {
+                id,
+                onSuccess: (data) => {
+                    setForm({ ...data });
+                }
+            }
+            console.log(id);
+            dispatch(discountActions.find(payload))
+        }
+    }, []);
+
+    const handleButtonToggle = (show) => {
+        setShowAvailability(show);
+        setShowCustomerEligibility(!show);
+        setShowNoMinimumRequirements(show);
+        setShowMaximumDiscountUses(!show);
+    };
+    
 
     return (
         <React.Fragment>
             <div className="page-content">
                 <Container fluid={true}>
-                    <AvForm  className="needs-validation" onValidSubmit={handleSubmit} >
+                    <AvForm  className="needs-validation" onValidSubmit={formik.handleSubmit} >
                         <Breadcrumbs title={t('create discount')} breadcrumbItems={breadcrumbItems} />
-                        <AmountOffProducts formik={formik} handleButtonToggle={handleButtonToggle}/> 
+                        <AmountOffProducts formik={formik} handleButtonToggle={handleButtonToggle} isEditing={isEditing}/> 
                         <DiscountValue formik={formik} /> 
                         {showAvailability && <Availability formik={formik} />}
                         <Purchase formik={formik} automaticDiscountClicked={!showNoMinimumRequirements} />

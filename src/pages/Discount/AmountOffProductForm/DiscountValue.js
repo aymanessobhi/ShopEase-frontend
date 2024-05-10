@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AvField, AvForm } from 'availity-reactstrap-validation';
 import { Button, Card, CardBody, Col, Label, Row, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
@@ -6,13 +6,12 @@ import { FormikProvider } from 'formik';
 import { useSelector } from 'react-redux';
 const DiscountValue = ({ formik }) => {
     const { t } = useTranslation('translation');
-    const { getFieldProps} = formik;
+    const { getFieldProps, setValues } = formik;
     const [discountValue, setDiscountValue] = useState('FIXED');
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState('COLLECTIONS');
     const { discountValues } = useSelector(state => state.data);
     const { appliesTo } = useSelector(state => state.data);
-
 
     const handleSpecificationChange = (e) => {
         setSelectedOption(e.target.value);
@@ -36,6 +35,7 @@ const DiscountValue = ({ formik }) => {
         }
 
     };
+    console.log(formik.values.discountValue)
 
     return (
         <FormikProvider value={formik}>
@@ -44,8 +44,8 @@ const DiscountValue = ({ formik }) => {
                         <Row>
                             <Col md="8">
                                 <div>
-                                    <Label className="form-label" htmlFor="discountValue">{t('discount.discountValue')}</Label>
-                                    <select className="form-control" onChange={handleDiscountChange}>
+                                    <Label className="form-label"  htmlFor="discountValue">{t('discount.discountValue')}</Label>
+                                    <select className="form-control" {...getFieldProps('discountValue')} onChange={handleDiscountChange}>
                                         <option>Sélectionner...</option>
                                         {discountValues.map((option, index) => (
                                             <option key={index} value={option.code}>{option.description}</option>
@@ -87,7 +87,7 @@ const DiscountValue = ({ formik }) => {
                             <Col md="12">
                                 <div>
                                     <Label className="form-label" htmlFor="specification">{t('discount.specification')}</Label>
-                                    <select className="form-control" onChange={handleSpecificationChange}>
+                                    <select className="form-control" {...getFieldProps('specification')} onChange={handleSpecificationChange}>
                                         <option>Sélectionner...</option>
                                         {appliesTo.map(option => (
                                             <option key={option.code} value={option.code}>{option.description}</option>
@@ -132,7 +132,7 @@ const DiscountValue = ({ formik }) => {
                                         }}
                                         onClick={handleBrowserClick}
                                     >
-                                        {t('action.browser')}
+                                        {t('actions.browser')}
                                     </Button>
                                 </div>
                             </Col>

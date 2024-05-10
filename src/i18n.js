@@ -72,6 +72,9 @@ const resources = {
         restrictAccess:"Restreindre l'accès"
       },
       discount:{
+        title:"Titre",
+        status:"Status",
+        type:"Type",
         manage:'Gérer les réductions et les promotions',
         createDiscountDescription: "Créez des codes de réduction et des réductions automatiques qui s'appliquent lors du paiement. Vous pouvez également utiliser des réductions avec des prix comparatifs.",
         createDiscount:'Créer une réduction',
@@ -125,7 +128,9 @@ const resources = {
         startTime: "Heure de début",
         setEndDate: "Définir une date de fin",
         endDate: "Date de fin",
-        endTime: "Heure de fin"
+        endTime: "Heure de fin",
+        expired:"Expiré",
+        active:"Active"
       },
       purchase: {
         adviceA: "Conseil A",
