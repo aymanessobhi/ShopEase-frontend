@@ -1,21 +1,30 @@
 import React, { useState } from 'react'
 import { AvField, AvForm } from 'availity-reactstrap-validation';
 import { useTranslation } from 'react-i18next';
-import { Button, Card, CardBody, Col, Label, Row } from 'reactstrap';
+import { Button, Card, CardBody, Col, Label, Row , Input, Table } from 'reactstrap';
 import { FormikProvider } from 'formik';
 import { Link } from 'react-router-dom';
 
-const PointOfSaleAccess = ({ formik }) => {
+const PointOfSaleAccess = ({ formik ,locations}) => {
 
     const { t } = useTranslation('translation');
     const { getFieldProps } = formik;
     const [pin, setPin] = useState('');
 
+    const handleLocation = (checked, equip) => {
+        if(checked){
+            console.log('checked',[equip]);
+            formik.setFieldValue('locations', [...formik.values.locations,equip]);
+        }else{
+            let filtred = formik.values.locations.filter(e => e.code !== equip.code);
+            formik.setFieldValue('locations', [...filtred]);
+        }
+    }
     const generateRandomPin = () => {
         const randomPin = Math.floor(1000 + Math.random() * 900000);
+        formik.setFieldValue('pin',randomPin)
         setPin(randomPin);
     };
-
     return (
         <FormikProvider value={formik}>
             <Card>
@@ -71,7 +80,7 @@ const PointOfSaleAccess = ({ formik }) => {
                     </AvForm>
                 </CardBody>
             </Card>
-            {/* <Card>
+            <Card>
                 <CardBody>
                     <AvForm>
                         <h4 className="card-title">{t('staff.pin')}</h4>
@@ -85,13 +94,12 @@ const PointOfSaleAccess = ({ formik }) => {
                                 <div className="mt-3">
                                     <AvField
                                         {...getFieldProps('pin')}
-                                        type="text"
+                                        type="number"
                                         placeholder={t('staff.pin')}
                                         className="form-control"
                                         validate={{ required: { value: true } }}
                                         id="pin"
                                         value={pin}
-                                        onChange={() => { }}
                                     />
                                 </div>
                             </Col>
@@ -103,36 +111,55 @@ const PointOfSaleAccess = ({ formik }) => {
                         </Row>
                     </AvForm>
                 </CardBody>
-            </Card> */}
+            </Card>
             <Card>
                 <CardBody>
                     <AvForm>
-                        <Row>
-                            {/* <Col md="10">
-                                <div className="mb-3">
-                                    <h4 className="card-title">{t('staff.location')}</h4>
-                                </div>
-                            </Col> */}
-                                 <Col md="6">
-                                <div className="mb-3">
-                                    <Label className="form-label" htmlFor="firstname">{t('Location')}</Label>
-                                    <AvField
-                                        {...getFieldProps('location')}
-                                        placeholder={t('Location')}
-                                        type="text"
-                                        errorMessage={t('message.required')}
-                                        className="form-control"
-                                        validate={{ required: { value: true } }}
-                                        id="location"
-                                    />
-                                </div>
-                            </Col>
-                            {/* <Col md="2">
-                                <div className="mb-2">
-                                    <Button>{t('staff.restrictAccess')}</Button>
-                                </div>
-                            </Col> */}
-                        </Row>
+                    <Row>
+                         <Col xs={12}>
+                            <Card>
+                                <CardBody>
+                                    <h4 className="card-title">List des Emplacements</h4>
+                                    <div className="table-responsive">
+                                        <Table striped className=" mb-0">
+
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>{t('location.city')}</th>
+                                        <th>{t('location.address')}</th>
+                                        <th>{t('location.name')}</th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                                {
+                                    locations.map(e => {
+                                        return (
+                                            <tr>
+                                                <td>
+                    <React.Fragment>
+                    <div className="form-check mb-3">
+                    <Input className="form-check-input" type="checkbox" onChange={(event) => handleLocation(event.target.checked, e)} />
+                    </div>
+                    </React.Fragment>
+                                                </td>
+                                                <td>{e.city}</td>
+                                                <td>{e.address}</td>
+                                                <td>{e.name}</td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+
+                                    
+                                            </tbody>
+                                        </Table>
+                                    </div>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+
                     </AvForm>
                 </CardBody>
             </Card>
